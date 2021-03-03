@@ -1,13 +1,28 @@
+import ch.noseryoung.blj.Methods;
+
+import java.rmi.server.ExportException;
 import java.util.Scanner;
 
 public class IO {
-    public void inputOutput(){
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Product Number: ");
-        int productNumber = scanner.nextInt();
-        System.out.println("GIVE ME YOUR MONEY!!!");
-        double money = scanner.nextDouble();
-        System.out.println("Press 1 to Complete (Anything else to stop the Process)");
-        int breakVar = scanner.nextInt();
+    public void inputOutputManagement() {
+        while (true) {
+            Scanner scanner = new Scanner(System.in);
+            System.out.println("Product Number: ");
+            int productNumber = Methods.readInt();
+            if (abortProcess(productNumber)) break;
+            System.out.println("GIVE ME YOUR MONEY!!!");
+            double money = Methods.readDouble();
+            if (abortProcess((int) money)) break;
+            System.out.println(money);
+        }
+    }
+
+    public boolean abortProcess(int check) {
+        boolean test = false;
+        if (check == -123) {
+            test = true;
+        }
+        return test;
+
     }
 }
