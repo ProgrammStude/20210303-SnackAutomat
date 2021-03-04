@@ -5,7 +5,7 @@ public class VendingMachine {
     private ArrayList<Item> items = new ArrayList<>();
     private double register;
     private int[] size;
-    private int key;
+    private int key = 123;
 
     public VendingMachine(ArrayList items, double register, int[] size, int key) {
         this.items = items;
@@ -13,6 +13,7 @@ public class VendingMachine {
         this.size = size;
         this.key = key;
     }
+    public VendingMachine(){}
 
     public void buy(){
 
@@ -45,4 +46,7 @@ public class VendingMachine {
 
     }
 
+    public int getKey() {
+        return key;
+    }
 }

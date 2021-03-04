@@ -4,12 +4,22 @@ import java.util.Scanner;
 
 public class IO {
     public void inputOutputManagement() {
+        VendingMachine vendingMachine = new VendingMachine();
         while (true) {
+            int productInt;
             Scanner scanner = new Scanner(System.in);
             System.out.println("Product Number: ");
             String productNumber = Methods.readSpecInput("123","x",1,50);
-            if (productNumber.equals("x")){
-                System.out.println("What do you want to do?\n Refill Machine(1), Change Prize of ");
+
+            try {
+                productInt = Integer.parseInt(productNumber);
+            } catch (NumberFormatException var11) {
+                productInt = 0;
+            }
+            if (productInt == vendingMachine.getKey()){
+                System.out.println("What do you want to do?\n Refill Machine(1), Change Prize of a Product(2)," +
+                        " Swap a Product(3)");
+
             }
             if (abortProcess(productNumber)) break;
             System.out.println("GIVE ME YOUR MONEY!!!");
