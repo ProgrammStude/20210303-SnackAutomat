@@ -35,10 +35,20 @@ public class IO {
                         vendingMachine.fill();
                         break;
                     case 2:
-                        vendingMachine.changePrice();
+                        System.out.println("Product Number: ");
+                        productInt  = Methods.readRangedInt(1, 50);
+                        if (abortProcess(productNumber)) break;
+                        System.out.println("New Price: ");
+                        double newPrice = Methods.readInt();
+
+                        vendingMachine.changePrice(productInt, newPrice);
                         break;
                     case 3:
-                        vendingMachine.changeItem();
+                        System.out.println("Product Number: ");
+                        productInt  = Methods.readRangedInt(1, 50);
+                        System.out.println("Product Number: ");
+                        String productName  = Methods.readAlphabeticString();
+                        vendingMachine.changeItem(productInt, productName);
                         break;
                     default:
                         break;
@@ -50,12 +60,20 @@ public class IO {
             if (abortProcess(money)) continue;
             try {
                 moneyDouble = Double.parseDouble(money);
-                moneyInt = (int) moneyDouble;
             } catch (NumberFormatException e) {
-                moneyInt = 0;
+                moneyDouble = 0;
             }
-            vendingMachine.checkAndReturnMoney(moneyInt, productInt);
-            System.out.println(money);
+            while (vendingMachine.checkAndReturnMoney(moneyDouble, productInt ) == 0) {
+                System.out.println("Give me MOREEE money");
+                money = Methods.readSpecInput(vendingMachine.getKey(), "x", 0.05, 50);
+                if (abortProcess(money)) break;
+                try {
+                    moneyDouble += Double.parseDouble(money);
+                } catch (NumberFormatException e) {
+                    moneyDouble = 0;
+                }
+            }
+
         }
     }
 

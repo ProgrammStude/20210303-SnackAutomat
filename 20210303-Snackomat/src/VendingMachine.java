@@ -13,7 +13,7 @@ public class VendingMachine {
         this.key = key;
     }
 
-    public void buy() {
+    public void buy() {/*
         boolean buyProduct;
         do {
             int userIn;
@@ -37,7 +37,7 @@ public class VendingMachine {
                 buyProduct = false;
             }
         } while (buyProduct);
-
+*/
     }
 
     public Item createItem(double price, int amount, int productID, String name) {
@@ -46,58 +46,57 @@ public class VendingMachine {
     }
 
     public void fill() {
-        double[] price = {3.50, 3.50, 3.00, 3.50, 3.50, 2.20, 2.20, 2.10, 2.50, 2.50, 2.80, 2.50, 2.50, 3.10, 3.10};
+        double[] price = {3.50, 3.50, 3.00, 3.50, 3.50, 2.20, 2.20, 2.10, 2.50, 2.50, 2.80, 2.50, 2.50, 3.10, 3.10,2.80};
         int amount = 10;
         String[] product = {"Coca Cola", "Coca Cola", "Water", "Fanta", "Sprite", "Snickers", "Snickers", "Mars",
                 "Twix", "Twix", "Maltesers", "Chewing Gum (Mint)", "Chewing Gum (Blue Berry)", "Oreo Cookie",
-                "Oreo Cookie"};
-        for (int productId = 0; productId < 15; productId++) {
+                "Oreo Cookie", " Crisps"};
+        for (int productId = 0; productId < product.length; productId++) {
             items.add(createItem(price[productId], amount, productId, product[productId]));
         }
-
-
-//        Item cola = new Item(3.50, 10, 1, "Coca Cola");
-//        Item colaSecondRow = new Item(3.50, 5, 2, "Coca Cola");
-//        Item water = new Item(3.00, 10, 3, "Water");
-//        Item fanta = new Item(3.50, 5, 4, "Fanta");
-//        Item sprite = new Item(3.50, 8, 5, "Sprite");
-//        Item snickers = new Item(2.20, 6, 6, "Snickers");
-//        Item snickersSecondRow = new Item(2.20, 10, 7, "Snickers");
-//        Item mars = new Item(2.10, 6, 8, "Mars");
-//        Item twix = new Item(2.50, 10, 9, "Twix");
-//        Item twixSecondRow = new Item(2.50, 6, 10, "Twix");
-//        Item maltesers = new Item(2.80, 5, 11, "Maltesers");
-//        Item gum = new Item(2.50, 12, 12, "Chewing Gum (Mint)");
-//        Item gumSecondRow = new Item(2.50, 3, 13, "Chewing Gum (Blue Berry)");
-//        Item oreo = new Item(3.10, 6, 14, "Oreo Cookie");
-//        Item oreoSecondRow = new Item(3.10, 8, 15, "Oreo Cookie");
-//        items.add(cola);
-//        items.add(colaSecondRow);
     }
 
-    public int changePrice() {
-        return 0;
+    public void changePrice(int productId, double newPrice) {
+        for (Item f: items) {
+            if (f.getProductId() == (productId)) {
+                f.setPrice(newPrice);
+            }
+        }
     }
 
-    public int checkAndReturnMoney(int money, int productId) {
+    public int checkAndReturnMoney(double money, int productId) {
        for (Item f: items) {
             if (f.getProductId() == (productId)){
                 if (f.getPrice() > money){
-                    System.out.println("Give more money");
+                    return 0;
                 }
                 else {
-                    System.out.println("Hier dein(e) "+ f.getName());
+                    System.out.println("Here is your: "+ f.getName());
+                    System.out.println("Exchange: " + (money - f.getPrice()));
+                    setRegister(getRegister()+f.getPrice());
                 }
                 break;
             }
         }
-        return 0;
+        return 1;
 
     }
 
 
-    public void changeItem() {
+    public void changeItem(int productId, String newProductName) {
+        int newProductId;
+        Item newProduct = null;
+        for (Item f: items) {
+            if (f.getName().equals(newProductName)) {
+                newProduct = f;
+            }
+        }
+        for (Item f: items) {
+            if (f.getProductId() == (productId)) {
+                f.setPrice(newProduct.getPrice());
 
+            }
+        }
     }
 
     public void printMachine() {

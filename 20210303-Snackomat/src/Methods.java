@@ -122,7 +122,7 @@ public class Methods {
 
         try {
             stringInt = Double.parseDouble(string);
-        } catch (NumberFormatException var12) {
+        } catch (NumberFormatException e) {
             stringInt = -1.0;
         }
 
