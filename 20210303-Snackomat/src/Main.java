@@ -7,6 +7,6 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
 
         IO io = new IO();
-          io.inputOutputManagement();
+        io.inputOutputManagement();
     }
 }
