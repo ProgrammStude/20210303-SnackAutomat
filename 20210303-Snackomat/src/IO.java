@@ -6,13 +6,16 @@ public class IO {
 
         while (true) {
             int productInt;
+            double productDouble;
+            double moneyDouble;
             int moneyInt;
             System.out.println("Product Number: ");
             String productNumber = Methods.readSpecInput(vendingMachine.getKey(), "x", 1, 50);
             if (abortProcess(productNumber)) break;
 
             try {
-                productInt = Integer.parseInt(productNumber);
+                productDouble = Double.parseDouble(productNumber);
+                productInt = (int) productDouble;
             } catch (NumberFormatException var11) {
                 productInt = 0;
             }
@@ -21,7 +24,7 @@ public class IO {
                 System.out.print("[");
                 for (int i = 0; i < 20; i++) {
                     System.out.print("=");
-                    Methods.delay(150, 600);
+                    Methods.delay(10, 20);
                 }
                 System.out.println("]\n");
                 System.out.println("What do you want to do?\nRefill Machine(1), Change Prize of a Product(2)," +
@@ -40,12 +43,14 @@ public class IO {
                     default:
                         break;
                 }
+                continue;
             }
             System.out.println("GIVE ME YOUR MONEY!!!");
             String money = Methods.readSpecInput(vendingMachine.getKey(), "x", 0.05, 50);
-            if (abortProcess(money)) break;
+            if (abortProcess(money)) continue;
             try {
-                moneyInt = Integer.parseInt(productNumber);
+                moneyDouble = Double.parseDouble(money);
+                moneyInt = (int) moneyDouble;
             } catch (NumberFormatException e) {
                 moneyInt = 0;
             }

@@ -115,7 +115,7 @@ public class Methods {
         return string;
     }
 
-    public static String readSpecInput(int exept1, String exept2, double rangeMin, double rangeMax) {
+    public static String readSpecInput(double exept1, String exept2, double rangeMin, double rangeMax) {
         Scanner scn = new Scanner(System.in);
         String string = scn.nextLine();
         double stringInt = 0.0;
@@ -123,21 +123,21 @@ public class Methods {
         try {
             stringInt = Double.parseDouble(string);
         } catch (NumberFormatException var12) {
-            stringInt = -1.0D;
+            stringInt = -1.0;
         }
 
         if (stringInt >= rangeMin && stringInt <= rangeMax) {
             string = Double.toString(stringInt);
         }
 
-        while(!(stringInt == exept1 && !string.equals(exept2) && (stringInt < rangeMin || stringInt > rangeMax))) {
+        while(!((stringInt == exept1) || (string.equals(exept2)) || ((stringInt >= rangeMin && stringInt <= rangeMax)))) {
             System.out.println("There was an Error, please repeat your input");
             string = scn.nextLine();
 
             try {
                 stringInt = (double)Integer.parseInt(string);
             } catch (NumberFormatException var11) {
-                stringInt = -1.0D;
+                stringInt = -1.0;
             }
 
             if (stringInt >= rangeMin && stringInt <= rangeMax) {

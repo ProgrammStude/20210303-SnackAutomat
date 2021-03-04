@@ -55,12 +55,17 @@ public class VendingMachine {
     }
 
     public int checkAndReturnMoney(int money, int productId) {
-       /* for (Item f: items) {
+       for (Item f: items) {
             if (f.getProductId() == (productId)){
-                f.pos = pos;
+                if (f.getPrice() > money){
+                    System.out.println("Give more money");
+                }
+                else {
+                    System.out.println("Hier dein(e) "+ f.getName());
+                }
                 break;
             }
-        }*/
+        }
         return 0;
     }
 
