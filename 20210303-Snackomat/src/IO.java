@@ -1,4 +1,4 @@
-import ch.noseryoung.blj.Methods;
+//import ch.noseryoung.blj.Methods;
 
 import java.util.Scanner;
 
@@ -36,5 +36,33 @@ public class IO {
         }
         return test;
 
+    }
+
+    public void printVendingMachine () {
+        System.out.print("╔");
+        for (int i = 0; i < 10; i++) {
+            System.out.print("═");
+        }
+        System.out.println("╗");
+
+
+        System.out.print("║");
+        for (int i = 0; i < 10; i++) {
+            System.out.print(" ");
+        }
+        System.out.println("║");
+
+
+        System.out.print("╚");
+        for (int i = 0; i < 10; i++) {
+            System.out.print("═");
+        }
+        System.out.println("╝");
+        
+//        System.out.println("╩");
+//        System.out.println("╦");
+//        System.out.println("╠");
+//        System.out.println("╬");
+//        System.out.println("╣");
     }
 }
