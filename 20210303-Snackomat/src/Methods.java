@@ -1,5 +1,6 @@
 
 import java.util.InputMismatchException;
+import java.util.Random;
 import java.util.Scanner;
 
 public class Methods {
@@ -115,10 +116,10 @@ public class Methods {
         return string;
     }
 
-    public static String readSpecInput(String exept1, String exept2, double rangeMin, double rangeMax) {
+    public static String readSpecInput(int exept1, String exept2, double rangeMin, double rangeMax) {
         Scanner scn = new Scanner(System.in);
         String string = scn.nextLine();
-        double stringInt = 0.0D;
+        double stringInt = 0.0;
 
         try {
             stringInt = Double.parseDouble(string);
@@ -130,7 +131,7 @@ public class Methods {
             string = Double.toString(stringInt);
         }
 
-        while(!string.equals(exept1) && !string.equals(exept2) && (stringInt < rangeMin || stringInt > rangeMax)) {
+        while(!(stringInt == exept1 && !string.equals(exept2) && (stringInt < rangeMin || stringInt > rangeMax))) {
             System.out.println("There was an Error, please repeat your input");
             string = scn.nextLine();
 
@@ -172,6 +173,20 @@ public class Methods {
 
         return string;
     }
+
+    public static void delay(int min, int max){
+        Random random = new Random();
+        int timeToSleep = min+random.nextInt(max-min+1);
+        try
+        {
+            Thread.sleep(random.nextInt(timeToSleep));
+        }
+        catch(InterruptedException ex)
+        {
+            Thread.currentThread().interrupt();
+        }
+    }
+
 
     public static String removeSpecialChar(String string) {
         return string.replaceAll("[^a-zA-Z0-9]", "");
