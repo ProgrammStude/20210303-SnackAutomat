@@ -5,7 +5,7 @@ public class VendingMachine {
     private ArrayList items;
     private double register;
     private int[] size;
-    private int key;
+    private int key = 123;
 
     public VendingMachine(ArrayList items, double register, int[] size, int key) {
         this.items = items;
@@ -13,7 +13,7 @@ public class VendingMachine {
         this.size = size;
         this.key = key;
     }
-
+    public VendingMachine(){}
     public void buy(){
 
     }
@@ -22,12 +22,12 @@ public class VendingMachine {
 
     }
 
-    public int changePrice(int){
-
+    public int changePrice(){
+return 0;
     }
 
-    public int checkAndReturnMoney(int){
-
+    public int checkAndReturnMoney(){
+return 0;
     }
 
     public void changeItem(){
@@ -39,7 +39,10 @@ public class VendingMachine {
     }
 
     public boolean checkKey(){
-        
+        return false;
     }
 
+    public int getKey() {
+        return key;
+    }
 }
