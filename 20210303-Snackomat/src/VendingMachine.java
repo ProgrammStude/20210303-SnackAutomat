@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class VendingMachine {
 
-    private ArrayList items;
+    private ArrayList<Item> items = new ArrayList<>();
     private double register;
     private int[] size;
     private int key;
@@ -22,11 +22,12 @@ public class VendingMachine {
 
     }
 
-    public int changePrice(int){
-
+    public int changePrice(){
+    return 0;
     }
 
-    public int checkAndReturnMoney(int){
+    public int checkAndReturnMoney(){
+        return 0;
 
     }
 
@@ -34,12 +35,14 @@ public class VendingMachine {
 
     }
 
-    public void printAutomat(){
+    public void printMachine(){
 
     }
 
     public boolean checkKey(){
-        
+
+        return false;
+
     }
 
 }

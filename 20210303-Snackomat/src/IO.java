@@ -8,6 +8,9 @@ public class IO {
             Scanner scanner = new Scanner(System.in);
             System.out.println("Product Number: ");
             String productNumber = Methods.readSpecInput("123","x",1,50);
+            if (productNumber.equals("x")){
+                System.out.println("What do you want to do?\n Refill Machine(1), Change Prize of ");
+            }
             if (abortProcess(productNumber)) break;
             System.out.println("GIVE ME YOUR MONEY!!!");
             String money = Methods.readSpecInput("123","x",0.05,50);
