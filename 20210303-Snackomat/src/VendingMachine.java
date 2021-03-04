@@ -33,11 +33,11 @@ public class VendingMachine {
 
     }
 
-    public int changePrice(int) {
+    public int changePrice() {
         return 0;
     }
 
-    public int checkAndReturnMoney(int) {
+    public int checkAndReturnMoney() {
         return 0;
     }
 
@@ -45,7 +45,7 @@ public class VendingMachine {
 
     }
 
-    public void printAutomat() {
+    public void printMachine() {
 
     }
 

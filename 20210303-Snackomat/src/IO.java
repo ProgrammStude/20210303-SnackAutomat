@@ -6,9 +6,6 @@ public class IO {
 
         while (true) {
             int productInt;
-            String text = "What do you want to do?\nRefill Machine(1), Change Prize of a Product(2)," +
-                    " Swap a Product(3)";
-            Scanner scanner = new Scanner(System.in);
             System.out.println("Product Number: ");
             String productNumber = Methods.readSpecInput(vendingMachine.getKey(), "x", 1, 50);
 
