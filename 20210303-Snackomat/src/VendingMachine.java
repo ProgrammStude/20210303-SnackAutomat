@@ -2,10 +2,10 @@ import java.util.ArrayList;
 
 public class VendingMachine {
 
-    private ArrayList<Item> items = new ArrayList<>();
+    private ArrayList items;
     private double register;
     private int[] size;
-    private int key = 123;
+    private int key;
 
     public VendingMachine(ArrayList items, double register, int[] size, int key) {
         this.items = items;
@@ -13,7 +13,6 @@ public class VendingMachine {
         this.size = size;
         this.key = key;
     }
-    public VendingMachine(){}
 
     public void buy(){
 
@@ -23,12 +22,11 @@ public class VendingMachine {
 
     }
 
-    public int changePrice(){
-    return 0;
+    public int changePrice(int){
+
     }
 
-    public int checkAndReturnMoney(){
-        return 0;
+    public int checkAndReturnMoney(int){
 
     }
 
@@ -36,17 +34,12 @@ public class VendingMachine {
 
     }
 
-    public void printMachine(){
+    public void printAutomat(){
 
     }
 
     public boolean checkKey(){
-
-        return false;
-
+        
     }
 
-    public int getKey() {
-        return key;
-    }
 }
