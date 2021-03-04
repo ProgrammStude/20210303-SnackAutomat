@@ -7,7 +7,7 @@ public class VendingMachine {
     private int[] size;
     private int key;
 
-    public VendingMachine( double register, int[] size, int key) {
+    public VendingMachine(double register, int[] size, int key) {
         this.register = register;
         this.size = size;
         this.key = key;
@@ -15,66 +15,64 @@ public class VendingMachine {
 
     public void buy() {
 //        boolean buyProduct = false;
-//        do{
-//            //get char convert to int -1= num1
-//            //get int -1= num2
-//
-//            //Produkt mit stelle num1 * länge  + num2 = num3
-//            //checkAndReturnMoney
-//            //if buyProduct
-//            if (IO.abortProcess()){
-//                buyProduct = false;
+//        do {
+//            int userIn;
+//            System.out.println("Enter the product number: ");
+//            userIn = 10;
+//            Item userItem = items.get(userIn);
+//            System.out.print("Price: " + userItem.getPrice() + "\nEnter money: ");
+//            int userMoney = 10;
+//            if (userItem.getPrice() > userMoney) {
+//                System.out.println("Not enough Money, enter more or press 'x' to abort ");
 //            }
+//            double returnMoney = checkAndReturnMoney(userItem.getPrice(), userMoney);
+//            if (returnMoney > 0) {
 //
-//        }while(buyProduct);
+//            }
+//        } while (buyProduct);
+    }
+
+    public Item createItem(double price, int amount, int productID, String name) {
+        Item item = new Item(price, amount, productID, name);
+        return item;
     }
 
     public void fill() {
-        Item cola = new Item(3.50, 10, 1, "Coca Cola");
-        Item colaSecondRow = new Item(3.50, 5, 2, "Coca Cola");
-        Item water = new Item(3.00, 10, 3, "Water");
-        Item fanta = new Item(3.50, 5, 4, "Fanta");
-        Item sprite = new Item(3.50, 8, 5, "Sprite");
-        Item snickers = new Item(2.20, 6, 6, "Snickers");
-        Item snickersSecondRow = new Item(2.20, 10, 7, "Snickers");
-        Item mars = new Item(2.10, 6, 8, "Mars");
-        Item twix = new Item(2.50, 10, 9, "Twix");
-        Item twixSecondRow = new Item(2.50, 6, 10, "Twix");
-        Item maltesers = new Item(2.80, 5, 11, "Maltesers");
-        Item gum = new Item(2.50, 12, 12, "Chewing Gum (Mint)");
-        Item gumSecondRow = new Item(2.50, 3, 13, "Chewing Gum (Blue Berry)");
-        Item oreo = new Item(3.10, 6, 14, "Oreo Cookie");
-        Item oreoSecondRow = new Item(3.10, 8, 15, "Oreo Cookie");
-        items.add(cola);
-        items.add(colaSecondRow);
+        double[] price = {3.50, 3.50, 3.00, 3.50, 3.50, 2.20, 2.20, 2.10, 2.50, 2.50, 2.80, 2.50, 2.50, 3.10, 3.10};
+        int amount = 10;
+        String[] product = {"Coca Cola", "Coca Cola", "Water", "Fanta", "Sprite", "Snickers", "Snickers", "Mars",
+                "Twix", "Twix", "Maltesers", "Chewing Gum (Mint)", "Chewing Gum (Blue Berry)", "Oreo Cookie",
+                "Oreo Cookie"};
+        for (int productId = 0; productId < 15; productId++) {
+            items.add(createItem(price[productId], amount, productId, product[productId]));
+        }
 
+
+//        Item cola = new Item(3.50, 10, 1, "Coca Cola");
+//        Item colaSecondRow = new Item(3.50, 5, 2, "Coca Cola");
+//        Item water = new Item(3.00, 10, 3, "Water");
+//        Item fanta = new Item(3.50, 5, 4, "Fanta");
+//        Item sprite = new Item(3.50, 8, 5, "Sprite");
+//        Item snickers = new Item(2.20, 6, 6, "Snickers");
+//        Item snickersSecondRow = new Item(2.20, 10, 7, "Snickers");
+//        Item mars = new Item(2.10, 6, 8, "Mars");
+//        Item twix = new Item(2.50, 10, 9, "Twix");
+//        Item twixSecondRow = new Item(2.50, 6, 10, "Twix");
+//        Item maltesers = new Item(2.80, 5, 11, "Maltesers");
+//        Item gum = new Item(2.50, 12, 12, "Chewing Gum (Mint)");
+//        Item gumSecondRow = new Item(2.50, 3, 13, "Chewing Gum (Blue Berry)");
+//        Item oreo = new Item(3.10, 6, 14, "Oreo Cookie");
+//        Item oreoSecondRow = new Item(3.10, 8, 15, "Oreo Cookie");
+//        items.add(cola);
+//        items.add(colaSecondRow);
     }
 
     public int changePrice() {
         return 0;
     }
 
-<<<<<<< HEAD
-        Item cola = new Item(3.50, 10, 1, "Coca Cola");
-        Item colaSecondRow = new Item(3.50, 5, 2, "Coca Cola");
-        Item water = new Item(3.00, 10, 3, "Water");
-        Item fanta = new Item(3.50, 5, 4, "Fanta");
-        Item sprite = new Item(3.50, 8, 5, "Sprite");
-        Item snickers = new Item(2.20, 6, 6, "Snickers");
-        Item snickersSecondRow = new Item(2.20, 10, 7, "Snickers");
-        Item mars = new Item(2.10, 6, 8, "Mars");
-        Item twix = new Item(2.50, 10, 9, "Twix");
-        Item twixSecondRow = new Item(2.50, 6, 10, "Twix");
-        Item maltesers = new Item(2.80, 5, 11, "Maltesers");
-        Item gum = new Item(2.50, 12, 12, "Chewing Gum (Mint)");
-        Item gumSecondRow = new Item(2.50, 3, 13, "Chewing Gum (Blue Berry)");
-        Item oreo = new Item(3.10, 6, 14, "Oreo Cookie");
-        Item oreoSecondRow = new Item(3.10, 8, 15, "Oreo Cookie");
 
-
-
-=======
-    public int checkAndReturnMoney(int money, int productId) {
+    public int checkAndReturnMoney(double money, int productId) {
        /* for (Item f: items) {
             if (f.getProductId() == (productId)){
                 f.pos = pos;
@@ -82,7 +80,7 @@ public class VendingMachine {
             }
         }*/
         return 0;
->>>>>>> de680f1a460aa225b672ad3f04d46918624662d9
+
     }
 
 
