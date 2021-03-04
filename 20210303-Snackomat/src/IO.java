@@ -1,6 +1,5 @@
 import ch.noseryoung.blj.Methods;
 
-import java.rmi.server.ExportException;
 import java.util.Scanner;
 
 public class IO {
@@ -8,18 +7,18 @@ public class IO {
         while (true) {
             Scanner scanner = new Scanner(System.in);
             System.out.println("Product Number: ");
-            int productNumber = Methods.readInt();
+            String productNumber = Methods.readSpecInput("123","x",1,50);
             if (abortProcess(productNumber)) break;
             System.out.println("GIVE ME YOUR MONEY!!!");
-            double money = Methods.readDouble();
-            if (abortProcess((int) money)) break;
+            String money = Methods.readSpecInput("123","x",0.05,50);
+            if (abortProcess(money)) break;
             System.out.println(money);
         }
     }
 
-    public boolean abortProcess(int check) {
+    public boolean abortProcess(String check) {
         boolean test = false;
-        if (check == -123) {
+        if (check.equals("x")) {
             test = true;
         }
         return test;
