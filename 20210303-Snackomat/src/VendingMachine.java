@@ -5,10 +5,9 @@ public class VendingMachine {
     private ArrayList items;
     private double register;
     private int[] size;
-    private int key = 123;
+    private int key;
 
-    public VendingMachine(ArrayList items, double register, int[] size, int key) {
-        this.items = items;
+    public VendingMachine( double register, int[] size, int key) {
         this.register = register;
         this.size = size;
         this.key = key;
