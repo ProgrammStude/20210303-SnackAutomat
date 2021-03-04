@@ -14,22 +14,30 @@ public class VendingMachine {
     }
 
     public void buy() {
-//        boolean buyProduct = false;
-//        do {
-//            int userIn;
-//            System.out.println("Enter the product number: ");
-//            userIn = 10;
-//            Item userItem = items.get(userIn);
-//            System.out.print("Price: " + userItem.getPrice() + "\nEnter money: ");
-//            int userMoney = 10;
-//            if (userItem.getPrice() > userMoney) {
-//                System.out.println("Not enough Money, enter more or press 'x' to abort ");
-//            }
-//            double returnMoney = checkAndReturnMoney(userItem.getPrice(), userMoney);
-//            if (returnMoney > 0) {
-//
-//            }
-//        } while (buyProduct);
+        boolean buyProduct;
+        do {
+            int userIn;
+            System.out.println("Enter the product number: ");
+            userIn = 10;
+            Item userItem = items.get(userIn);
+            System.out.print("Price: " + userItem.getPrice() + "\nEnter money: ");
+            int userMoney = Methods.readInt();
+            while(userItem.getPrice() > userMoney){
+                System.out.println("Not enough Money, enter more or press 'x' to abort ");
+                userMoney+= Methods.readInt();
+            }
+            if(userItem.getPrice() < userMoney){
+                System.out.println("Return: " + (userMoney - userItem.getPrice()));
+            }
+            System.out.println("Buy an other Product? yes = 1/ no = 0");
+            int repeatBuy = Methods.readInt();
+            if(repeatBuy == 1){
+                buyProduct = true;
+            }else{
+                buyProduct = false;
+            }
+        } while (buyProduct);
+
     }
 
     public Item createItem(double price, int amount, int productID, String name) {
