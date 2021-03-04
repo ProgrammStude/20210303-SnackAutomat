@@ -15,8 +15,7 @@ public class Methods {
             scn.next();
         }
 
-        double input = scn.nextDouble();
-        return input;
+        return scn.nextDouble();
     }
 
     public static boolean readBoolean() {

@@ -6,8 +6,10 @@ public class IO {
 
         while (true) {
             int productInt;
+            int moneyInt;
             System.out.println("Product Number: ");
             String productNumber = Methods.readSpecInput(vendingMachine.getKey(), "x", 1, 50);
+            if (abortProcess(productNumber)) break;
 
             try {
                 productInt = Integer.parseInt(productNumber);
@@ -39,10 +41,15 @@ public class IO {
                         break;
                 }
             }
-            if (abortProcess(productNumber)) break;
             System.out.println("GIVE ME YOUR MONEY!!!");
             String money = Methods.readSpecInput(vendingMachine.getKey(), "x", 0.05, 50);
             if (abortProcess(money)) break;
+            try {
+                moneyInt = Integer.parseInt(productNumber);
+            } catch (NumberFormatException e) {
+                moneyInt = 0;
+            }
+            vendingMachine.checkAndReturnMoney(moneyInt, productInt);
             System.out.println(money);
         }
     }
