@@ -2,8 +2,7 @@
 import java.util.Scanner;
 
 public class IO {
-    public void inputOutputManagement() {
-        VendingMachine vendingMachine = new VendingMachine();
+    public void inputOutputManagement(VendingMachine vendingMachine) {
 
         while (true) {
             int productInt;
