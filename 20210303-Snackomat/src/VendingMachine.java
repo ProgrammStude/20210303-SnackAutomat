@@ -52,7 +52,8 @@ public class VendingMachine {
                 }
                 else {
                     buy(f);
-                    System.out.println("Exchange: " + (money - f.getPrice()));
+                    System.out.printf("Exchange: %.2f\n", (money - f.getPrice()));
+                    Methods.delay(10000,10000);
                 }
                 break;
             }

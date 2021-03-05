@@ -8,19 +8,16 @@ public class IO {
         while (true) {
             printVendingMachine(vendingMachine);
             int productInt;
-            double productDouble;
             double moneyDouble;
             System.out.println("Product Number: ");
             String productNumber = Methods.readSpecInput(vendingMachine.getKey(), stopVar, 1, 15);
             if (abortProcess(productNumber)) continue;
             productInt = Methods.parseStringToInt(productNumber)-1;
-
-
             if (productInt+1 == vendingMachine.getKey()) {
                 if (loginAdmin(vendingMachine, productNumber)) continue;
             }
-
-            System.out.println("GIVE ME YOUR MONEY!!!");
+            String printPrice = String.format("%.2f", vendingMachine.getItems().get(productInt).getPrice());
+            System.out.println("Give me CHF " + printPrice);
             String money = Methods.readSpecInput(vendingMachine.getKey(), stopVar, 0.05, 100);
             if (abortProcess(money)) continue;
             moneyDouble = Methods.parseStringToDouble(money);
@@ -30,7 +27,6 @@ public class IO {
                 if (abortProcess(money)) break;
                 moneyDouble += Methods.parseStringToDouble(money);
             }
-
         }
     }
 
