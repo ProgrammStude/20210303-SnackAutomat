@@ -21,8 +21,7 @@ public class VendingMachine {
     }
 
     public Item createItem(double price, int amount, int productID, String name) {
-        Item item = new Item(price, amount, productID, name);
-        return item;
+        return new Item(price, amount, productID, name);
     }
 
     public ArrayList<Item> fillDefault(){
@@ -45,23 +44,23 @@ public class VendingMachine {
     }
 
     public void changePrice(int productId, double newPrice) {
-        for (Item f: items) {
-            if (f.getProductId() == (productId)) {
-                f.setPrice(newPrice);
+        for (Item i: items) {
+            if (i.getProductId() == (productId)) {
+                i.setPrice(newPrice);
             }
         }
     }
 
     public int checkAndReturnMoney(double money, int productId) {
-       for (Item f: items) {
-            if (f.getProductId() == (productId)){
-                if (f.getPrice() > money){
+       for (Item i: items) {
+            if (i.getProductId() == (productId)){
+                if (i.getPrice() > money){
                     return 0;
                 }
                 else {
-                    buy(f);
-                    System.out.printf("Exchange: %.2f\n", (money - f.getPrice()));
-                    Methods.delay(10000,10000);
+                    buy(i);
+                    System.out.printf("Exchange: %.2f\n", (money - i.getPrice()));
+                    Methods.delay(7000,7000);
                 }
                 break;
             }
@@ -73,22 +72,23 @@ public class VendingMachine {
 
     public void changeItem(int productId, String newProductName) {
         Item newProduct = null;
-        for (Item f: items) {
-            if (f.getName().equals(newProductName)) {
-                newProduct = f;
+        for (Item i: items) {
+            if (i.getName().equals(newProductName)) {
+                newProduct = i;
             }
             else{
 
+
             }
         }
-        for (Item f: items) {
-            if (f.getProductId() == (productId)) {
-                f.setPrice(newProduct.getPrice());
-                f.setAmount(newProduct.getAmount());
-                f.setName(newProductName);
-                newProduct.setName(f.getName());
-                newProduct.setPrice(f.getPrice());
-                newProduct.setAmount(f.getAmount());
+        for (Item i: items) {
+            if (i.getProductId() == (productId)) {
+                i.setPrice(newProduct.getPrice());
+                i.setAmount(newProduct.getAmount());
+                i.setName(newProductName);
+                newProduct.setName(i.getName());
+                newProduct.setPrice(i.getPrice());
+                newProduct.setAmount(i.getAmount());
             }
         }
     }
@@ -114,8 +114,8 @@ public class VendingMachine {
         this.register = register;
     }
 
-    public int[] getSize() {
-        return size;
+    public int getSize(int index) {
+        return size[index];
     }
 
     public void setSize(int[] size) {

@@ -12,8 +12,8 @@ public class IO {
             System.out.println("Product Number: ");
             String productNumber = Methods.readSpecInput(vendingMachine.getKey(), stopVar, 1, 15);
             if (abortProcess(productNumber)) continue;
-            productInt = Methods.parseStringToInt(productNumber)-1;
-            if (productInt+1 == vendingMachine.getKey()) {
+            productInt = Methods.parseStringToInt(productNumber) - 1;
+            if (productInt + 1 == vendingMachine.getKey()) {
                 if (loginAdmin(vendingMachine, productNumber)) continue;
             }
             String printPrice = String.format("%.2f", vendingMachine.getItems().get(productInt).getPrice());
@@ -22,7 +22,8 @@ public class IO {
             if (abortProcess(money)) continue;
             moneyDouble = Methods.parseStringToDouble(money);
             while (vendingMachine.checkAndReturnMoney(moneyDouble, productInt) == 0) {
-                System.out.println("Give me MOREEE money");
+                String missingMoney = String.format("%.2f", vendingMachine.getItems().get(productInt).getPrice() - moneyDouble);
+                System.out.println("Give me CHF " + missingMoney);
                 money = Methods.readSpecInput(vendingMachine.getKey(), stopVar, 0.05, 50);
                 if (abortProcess(money)) break;
                 moneyDouble += Methods.parseStringToDouble(money);
@@ -84,102 +85,100 @@ public class IO {
 
     public void printVendingMachine(VendingMachine vendingMachine) {
         int length = stringLength(vendingMachine);
-        int width = 3;
+        int width = vendingMachine.getSize(0);
+        int lengthItems = vendingMachine.getSize(1);
 
-        if (vendingMachine.getItems().size() != 0) {
-            //Top line border
-            System.out.print("╔");
-            for (int i = 0; i < width * (length + 4); i++) {
-                System.out.print("═");
-            }
-            System.out.print("╗\n║");
-            //print content
-            for (int j = 0; j < vendingMachine.getItems().size() / width; j++) {
-                //Top line Item
-                for (int i = 0; i < width; i++) {
-                    System.out.print(" ╔");
-                    for (int k = 0; k < length; k++) {
-                        System.out.print("═");
-                    }
-                    System.out.print("╗ ");
-                }
-                System.out.print("║\n║");
-
-                //Line with name
-                int[] informationLength;
-                for (int k = 0; k < width; k++) {
-                    informationLength = spaceDistance(length, vendingMachine.getItems().get(j * width + k).getName().length());
-                    System.out.print(" ║");
-                    for (int i = 0; i < informationLength[0]; i++) {
-                        System.out.print(" ");
-                    }
-                    System.out.print(vendingMachine.getItems().get(j * width + k).getName());
-                    for (int i = 0; i < informationLength[1]; i++) {
-                        System.out.print(" ");
-                    }
-                    System.out.print("║ ");
-                }
-                System.out.print("║\n║");
-
-                //Line with productId and Amount
-                for (int k = 0; k < width; k++) {
-                    System.out.print(" ║");
-                    String printProductID = String.format("%03d", vendingMachine.getItems().get(j * width + k).getProductId() + 1);
-                    String printAmount = String.format("%02d", vendingMachine.getItems().get(j * width + k).getAmount());
-
-                    informationLength = spaceDistance(length, (7 + printProductID.length() + printAmount.length()));
-                    for (int i = 0; i < informationLength[0]; i++) {
-                        System.out.print(" ");
-                    }
-                    System.out.print("Nr. " + printProductID + " (" + printAmount + ")");
-                    for (int i = 0; i < informationLength[1]; i++) {
-                        System.out.print(" ");
-                    }
-                    System.out.print("║ ");
-                }
-                System.out.print("║\n║");
-
-                //Line with Price
-                for (int k = 0; k < width; k++) {
-                    String printPrice = String.format("%04.2f", vendingMachine.getItems().get(j * width + k).getPrice());
-                    System.out.print(" ║");
-                    informationLength = spaceDistance(length, (4 + printPrice.length()));
-                    for (int i = 0; i < informationLength[0]; i++) {
-                        System.out.print(" ");
-                    }
-                    System.out.print("CHF " + printPrice);
-                    for (int i = 0; i < informationLength[1]; i++) {
-                        System.out.print(" ");
-                    }
-                    System.out.print("║ ");
-                }
-
-                //Bottom line of Item
-                System.out.print("║\n║");
-                for (int k = 0; k < width; k++) {
-                    System.out.print(" ╚");
-                    for (int i = 0; i < length; i++) {
-                        System.out.print("═");
-                    }
-                    System.out.print("╝ ");
-                }
-
-                //Check if it is the last iteration
-                if (j + 1 == vendingMachine.getItems().size() / width) {
-                    System.out.print("║\n");
-                } else {
-                    System.out.print("║\n║");
-                }
-            }
-            //Bottom line border
-            System.out.print("╚");
-            for (int i = 0; i < width * (length + 4); i++) {
-                System.out.print("═");
-            }
-            System.out.println("╝");
-        }else{
-            System.out.println("Vending machine is empty");
+        //Top line border
+        System.out.print("╔");
+        for (int i = 0; i < width * (length + 4); i++) {
+            System.out.print("═");
         }
+        System.out.print("╗\n║");
+        //print content
+        for (int j = 0; j < vendingMachine.getItems().size() / width && j < lengthItems; j++){
+            //Top line Item
+            for (int i = 0; i < width; i++) {
+                System.out.print(" ╔");
+                for (int k = 0; k < length; k++) {
+                    System.out.print("═");
+                }
+                System.out.print("╗ ");
+            }
+            System.out.print("║\n║");
+
+            //Line with name
+            int[] informationLength;
+            for (int k = 0; k < width; k++) {
+                informationLength = spaceDistance(length, vendingMachine.getItems().get(j * width + k).getName().length());
+                System.out.print(" ║");
+                for (int i = 0; i < informationLength[0]; i++) {
+                    System.out.print(" ");
+                }
+                System.out.print(vendingMachine.getItems().get(j * width + k).getName());
+                for (int i = 0; i < informationLength[1]; i++) {
+                    System.out.print(" ");
+                }
+                System.out.print("║ ");
+            }
+            System.out.print("║\n║");
+
+            //Line with productId and Amount
+            for (int k = 0; k < width; k++) {
+                System.out.print(" ║");
+                String printProductID = String.format("%03d", vendingMachine.getItems().get(j * width + k).getProductId() + 1);
+                String printAmount = String.format("%02d", vendingMachine.getItems().get(j * width + k).getAmount());
+
+                informationLength = spaceDistance(length, (7 + printProductID.length() + printAmount.length()));
+                for (int i = 0; i < informationLength[0]; i++) {
+                    System.out.print(" ");
+                }
+                System.out.print("Nr. " + printProductID + " (" + printAmount + ")");
+                for (int i = 0; i < informationLength[1]; i++) {
+                    System.out.print(" ");
+                }
+                System.out.print("║ ");
+            }
+            System.out.print("║\n║");
+
+            //Line with Price
+            for (int k = 0; k < width; k++) {
+                String printPrice = String.format("%04.2f", vendingMachine.getItems().get(j * width + k).getPrice());
+                System.out.print(" ║");
+                informationLength = spaceDistance(length, (4 + printPrice.length()));
+                for (int i = 0; i < informationLength[0]; i++) {
+                    System.out.print(" ");
+                }
+                System.out.print("CHF " + printPrice);
+                for (int i = 0; i < informationLength[1]; i++) {
+                    System.out.print(" ");
+                }
+                System.out.print("║ ");
+            }
+
+            //Bottom line of Item
+            System.out.print("║\n║");
+            for (int k = 0; k < width ; k++) {
+                System.out.print(" ╚");
+                for (int i = 0; i < length; i++) {
+                    System.out.print("═");
+                }
+                System.out.print("╝ ");
+            }
+
+            //Check if it is the last iteration
+            if (j + 1 == lengthItems) {
+                System.out.print("║\n");
+            } else {
+                System.out.print("║\n║");
+            }
+        }
+        //Bottom line border
+        System.out.print("╚");
+        for (int i = 0; i < width * (length + 4); i++) {
+            System.out.print("═");
+        }
+        System.out.println("╝");
+
     }
 
 
