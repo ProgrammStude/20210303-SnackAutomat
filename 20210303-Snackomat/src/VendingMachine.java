@@ -29,7 +29,7 @@ public class VendingMachine {
         int amount = 10;
         String[] product = {"Coca Cola", "Coca Cola", "Water", "Fanta", "Sprite", "Snickers", "Snickers", "Mars",
                 "Twix", "Twix", "Maltesers", "Chewing Gum (Mint)", "Chewing Gum (Blue Berry)", "Oreo Cookie",
-                "Oreo Cookie", " Crisps"};
+                "Oreo Cookie", "Crisps"};
         for (int productId = 0; productId < product.length; productId++) {
             items.add(createItem(price[productId], amount, productId, product[productId]));
         }
@@ -67,6 +67,9 @@ public class VendingMachine {
             if (f.getName().equals(newProductName)) {
                 newProduct = f;
             }
+            else{
+
+            }
         }
         for (Item f: items) {
             if (f.getProductId() == (productId)) {
@@ -77,9 +80,6 @@ public class VendingMachine {
         }
     }
 
-    public void printMachine() {
-
-    }
 
     public boolean checkKey() {
         return false;

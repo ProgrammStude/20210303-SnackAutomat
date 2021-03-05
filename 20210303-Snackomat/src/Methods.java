@@ -190,4 +190,24 @@ public class Methods {
     public static String removeSpecialChar(String string) {
         return string.replaceAll("[^a-zA-Z0-9]", "");
     }
+
+    public static double parseStringToDouble(String string){
+        double varDouble;
+        try {
+            varDouble = Double.parseDouble(string);
+        } catch (NumberFormatException e) {
+            varDouble = 0;
+        }
+        return varDouble;
+    }
+    public static int parseStringToInt(String string){
+        int varInt;
+        try {
+            varInt = Integer.parseInt(string);
+        } catch (NumberFormatException var11) {
+            varInt = 0;
+        }
+        return varInt;
+    }
 }
+

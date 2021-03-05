@@ -2,81 +2,81 @@
 import java.util.Scanner;
 
 public class IO {
+    private String stopVar = "x";
     public void inputOutputManagement(VendingMachine vendingMachine) {
 
         while (true) {
+            printVendingMachine(vendingMachine);
             int productInt;
             double productDouble;
             double moneyDouble;
-            int moneyInt;
-            String stop = "x";
             System.out.println("Product Number: ");
-            String productNumber = Methods.readSpecInput(vendingMachine.getKey(), "x", 1, 50);
-            if (abortProcess(productNumber)) break;
+            String productNumber = Methods.readSpecInput(vendingMachine.getKey(), stopVar, 1, 15);
+            if (abortProcess(productNumber)) continue;
+            productInt = Methods.parseStringToInt(productNumber);
+            productDouble = Methods.parseStringToDouble(productNumber);
 
-            try {
-                productDouble = Double.parseDouble(productNumber);
-                productInt = (int) productDouble;
-            } catch (NumberFormatException var11) {
-                productInt = 0;
-            }
             if (productInt == vendingMachine.getKey()) {
-                System.out.println("Try to log in as Admin");
-                System.out.print("[");
-                for (int i = 0; i < 20; i++) {
-                    System.out.print("=");
-                    Methods.delay(10, 20);
-                }
-                System.out.println("]\n");
-                System.out.println("What do you want to do?\nRefill Machine(1), Change Prize of a Product(2)," +
-                        " Swap a Product(3)");
-                int action = Methods.readRangedInt(1, 3);
-                switch (action) {
-                    case 1:
-                        vendingMachine.fill();
-                        break;
-                    case 2:
-                        System.out.println("Product Number: ");
-                        productInt  = Methods.readRangedInt(1, 50);
-                        if (abortProcess(productNumber)) break;
-                        System.out.println("New Price: ");
-                        double newPrice = Methods.readInt();
+                if (loginAdmin(vendingMachine,productNumber))continue;
+            }
 
-                        vendingMachine.changePrice(productInt, newPrice);
-                        break;
-                    case 3:
-                        System.out.println("Product Number: ");
-                        productInt  = Methods.readRangedInt(1, 50);
-                        System.out.println("Product Number: ");
-                        String productName  = Methods.readAlphabeticString();
-                        vendingMachine.changeItem(productInt, productName);
-                        break;
-                    default:
-                        break;
-                }
-                continue;
-            }
             System.out.println("GIVE ME YOUR MONEY!!!");
-            String money = Methods.readSpecInput(vendingMachine.getKey(), "x", 0.05, 50);
+            String money = Methods.readSpecInput(vendingMachine.getKey(), stopVar, 0.05, 100);
             if (abortProcess(money)) continue;
-            try {
-                moneyDouble = Double.parseDouble(money);
-            } catch (NumberFormatException e) {
-                moneyDouble = 0;
-            }
+            moneyDouble = Methods.parseStringToDouble(money);
             while (vendingMachine.checkAndReturnMoney(moneyDouble, productInt ) == 0) {
                 System.out.println("Give me MOREEE money");
-                money = Methods.readSpecInput(vendingMachine.getKey(), "x", 0.05, 50);
+                money = Methods.readSpecInput(vendingMachine.getKey(), stopVar, 0.05, 50);
                 if (abortProcess(money)) break;
-                try {
-                    moneyDouble += Double.parseDouble(money);
-                } catch (NumberFormatException e) {
-                    moneyDouble = 0;
-                }
+                moneyDouble += Methods.parseStringToDouble(money);
             }
 
         }
     }
+
+    public boolean loginAdmin(VendingMachine vendingMachine, String productNumber){
+        int productInt;
+        System.out.println("Try to log in as Admin");
+        System.out.print("[");
+        for (int i = 0; i < 20; i++) {
+            System.out.print("=");
+            Methods.delay(10, 20);
+        }
+        System.out.println("]\n");
+        System.out.println("What do you want to do?\nRefill Machine(1), Change Prize of a Product(2)," +
+                " Swap a Product(3)");
+        String action = Methods.readSpecInput(123, stopVar, 1, 50);
+        if (abortProcess(productNumber)) return false;
+        int actionInt = Methods.parseStringToInt(action);
+        switch (actionInt) {
+            case 1:
+                vendingMachine.fill();
+                break;
+            case 2:
+                System.out.println("Product Number: ");
+                productNumber  = Methods.readSpecInput(123, stopVar, 1, 50);
+                if (abortProcess(productNumber)) return false;
+                System.out.println("New Price: ");
+                if (abortProcess(productNumber)) return false;
+                double newPrice = Methods.readInt();
+                productInt = Methods.parseStringToInt(productNumber);
+                vendingMachine.changePrice(productInt, newPrice);
+                break;
+            case 3:
+                System.out.println("Product Number: ");
+                productInt  = Methods.readRangedInt(1, 50);
+                if (abortProcess(productNumber)) return false;
+                System.out.println("New product name: ");
+                if (abortProcess(productNumber)) return false;
+                String productName  = Methods.readAlphabeticString();
+                vendingMachine.changeItem(productInt, productName);
+                break;
+            default:
+                break;
+        }
+        return true;
+    }
+
 
     public static boolean abortProcess(String check) {
         boolean willAbort = false;
@@ -162,5 +162,6 @@ public class IO {
         }
         return spaceGap;
     }
+
 
 }
