@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class Methods {
 
-    public static Integer readRangedInt(int min, int max) {
+    public static int readRangedInt(int min, int max) {
         Scanner scn = new Scanner(System.in);
         int input = -1;
 

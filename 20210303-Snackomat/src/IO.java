@@ -12,7 +12,7 @@ public class IO {
             double moneyDouble;
             if (filled == 0){
                 System.out.println("Code: ");
-                productInt = Methods.readRangedInt(123,123)-1;
+                productInt = Methods.readRangedInt(vendingMachine.getKey(),vendingMachine.getKey())-1;
             }
             else {
                 do {
@@ -27,7 +27,6 @@ public class IO {
                     if (abortProcess(productNumber) || productInt+1 == vendingMachine.getKey()) break;
                 }while (vendingMachine.getItems().get(productInt).getAmount() == 0);
                 if (abortProcess(productNumber)) continue;
-
             }
 
             if (productInt + 1 == vendingMachine.getKey()) {
@@ -38,7 +37,6 @@ public class IO {
             String money = Methods.readSpecInput(vendingMachine.getKey(), stopVar, 0.05, 100);
             if (abortProcess(money)) continue;
             moneyDouble = Methods.parseStringToDouble(money);
-
 
             while (!(vendingMachine.checkMoney(moneyDouble,productInt))){
                 String missingMoney = String.format("%.2f",
@@ -56,20 +54,23 @@ public class IO {
         }
     }
 
-    public boolean loginAdmin(VendingMachine vendingMachine, double register) {
+    public boolean loginAdmin(VendingMachine vendingMachine) {
         int productInt;
         String productNumber;
         String productName;
         System.out.println("Try to log in as Admin");
+
         System.out.print("[");
-        for (int i = 0; i < 19; i++) {
+        for (int i = 0; i < 18; i++) {
             System.out.print("=");
-            Methods.delay(70,80);
+            Methods.delay(200,500);
         }
+        Methods.delay(9000,9100);
+        System.out.print("==");
         System.out.println("]\n");
-        System.out.println("What do you want to do?\nRefill Machine(1), Change Prize of a Product(2)," +
-                " Swap a Product(3), Show how much money you have(4)");
-        String action = Methods.readSpecInput(vendingMachine.getKey(), stopVar, 1, 3);
+        System.out.println("What do you want to do?\nRefill machine(1), Change prize of a product(2)," +
+                " Swap a product(3), Get the money out of your register(4)");
+        String action = Methods.readSpecInput(vendingMachine.getKey(), stopVar, 1, 4);
         if (abortProcess(action)) return false;
         int actionInt = Methods.parseStringToInt(action);
         switch (actionInt) {
@@ -104,7 +105,7 @@ public class IO {
                 } while (!(vendingMachine.changeItem(productInt, productName)));
                 break;
             case 4:
-
+                System.out.println(vendingMachine.clearRegister());
                 break;
             default:
                 break;
@@ -236,11 +237,11 @@ public class IO {
         return maxStringLength + 2;
     }
 
-    public int[] spaceDistance(int maxLength, int minLength) {
+    public int[] spaceDistance(int maxLength, int informationLength) {
         int[] spaceGap = new int[2];
-        spaceGap[0] = (maxLength - minLength) / 2;
+        spaceGap[0] = (maxLength - informationLength) / 2;
 
-        if ((maxLength - minLength) % 2 == 1) {
+        if ((maxLength - informationLength) % 2 == 1) {
             spaceGap[1] = spaceGap[0] + 1;
         } else {
             spaceGap[1] = spaceGap[0];
@@ -252,8 +253,5 @@ public class IO {
         System.out.printf("Exchange: %.2f\n", (money - price));
     }
 
-    public void printRegister(double register){
-        System.out.println(register);
-    }
 }
 

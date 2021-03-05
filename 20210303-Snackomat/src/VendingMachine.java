@@ -14,6 +14,12 @@ public class VendingMachine {
         this.items = fillDefault();
     }
 
+    public double clearRegister(){
+        double registerMoney = getRegister();
+        setRegister(0);
+        return registerMoney;
+    }
+
     public Item createItem(double price, int amount, int productID, String name) {
         return new Item(price, amount, productID, name);
     }
