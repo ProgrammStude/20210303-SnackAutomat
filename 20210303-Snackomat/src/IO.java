@@ -33,6 +33,7 @@ public class IO {
 
     public boolean loginAdmin(VendingMachine vendingMachine, String productNumber) {
         int productInt;
+        String productName;
         System.out.println("Try to log in as Admin");
         System.out.print("[");
         for (int i = 0; i < 20; i++) {
@@ -42,7 +43,7 @@ public class IO {
         System.out.println("]\n");
         System.out.println("What do you want to do?\nRefill Machine(1), Change Prize of a Product(2)," +
                 " Swap a Product(3)");
-        String action = Methods.readSpecInput(123, stopVar, 1, 50);
+        String action = Methods.readSpecInput(123, stopVar, 1, 3);
         if (abortProcess(productNumber)) return false;
         int actionInt = Methods.parseStringToInt(action);
         switch (actionInt) {
@@ -61,12 +62,15 @@ public class IO {
                 break;
             case 3:
                 System.out.println("Product Number: ");
-                productInt = Methods.readRangedInt(1, 50);
+                productInt = Methods.readRangedInt(1, 50)-1;
                 if (abortProcess(productNumber)) return false;
-                System.out.println("New product name: ");
-                if (abortProcess(productNumber)) return false;
-                String productName = Methods.readAlphabeticString();
-                vendingMachine.changeItem(productInt, productName);
+                do {
+                    System.out.println("New product name: ");
+                    if (abortProcess(productNumber)) return false;
+                    productName = Methods.readAlphabeticString();
+                } while (!(vendingMachine.changeItem(productInt, productName)));
+
+
                 break;
             default:
                 break;

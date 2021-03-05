@@ -70,27 +70,39 @@ public class VendingMachine {
     }
 
 
-    public void changeItem(int productId, String newProductName) {
+    public boolean changeItem(int productId, String newProductName) {
         Item newProduct = null;
+        double tempPrice = 0;
+        int tempAmount = 0;
+        String tempName = "";
+        int newProductId = 0;
         for (Item i: items) {
             if (i.getName().equals(newProductName)) {
                 newProduct = i;
+                newProductId=i.getProductId();
             }
-            else{
-
-
-            }
+        }
+        if (newProductId == 0){
+            return false;
         }
         for (Item i: items) {
             if (i.getProductId() == (productId)) {
+                tempPrice = i.getPrice();
+                tempAmount = i.getAmount();
+                tempName = i.getName();
                 i.setPrice(newProduct.getPrice());
                 i.setAmount(newProduct.getAmount());
                 i.setName(newProductName);
-                newProduct.setName(i.getName());
-                newProduct.setPrice(i.getPrice());
-                newProduct.setAmount(i.getAmount());
             }
         }
+        for (Item i: items) {
+            if (newProductId == i.getProductId()){
+                i.setPrice(tempPrice);
+                i.setAmount(tempAmount);
+                i.setName(tempName);
+            }
+        }
+        return true;
     }
 
 
