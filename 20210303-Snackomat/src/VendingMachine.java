@@ -107,7 +107,7 @@ public class VendingMachine {
         return false;
     }
 
-    public ArrayList getItems() {
+    public ArrayList<Item> getItems() {
         return items;
     }
 

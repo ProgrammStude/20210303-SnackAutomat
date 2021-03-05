@@ -85,31 +85,81 @@ public class IO {
         return willAbort;
     }
 
-    public void printVendingMachine() {
-        System.out.print("╔");
-        for (int i = 0; i < 10; i++) {
-            System.out.print("═");
+    public void printVendingMachine(VendingMachine vendingMachine) {
+        int length = stringLength(vendingMachine);
+
+        for (int j = 0; j < vendingMachine.getItems().size(); j++) {
+            System.out.print("╔");
+            for (int i = 0; i < length; i++) {
+                System.out.print("═");
+            }
+            System.out.println("╗");
+
+            int[] informationLength = spaceDistance(length, vendingMachine.getItems().get(j).getName().length());
+
+            System.out.print("║");
+            for (int i = 0; i < informationLength[0]; i++) {
+                System.out.print(" ");
+            }
+            System.out.print(vendingMachine.getItems().get(j).getName());
+            for (int i = 0; i < informationLength[1]; i++) {
+                System.out.print(" ");
+            }
+            System.out.print("║\n║");
+
+            String printProductID = String.format("%03d", vendingMachine.getItems().get(j).getProductId());
+            String printAmount = String.format("%02d", vendingMachine.getItems().get(j).getAmount());
+
+            informationLength = spaceDistance(length, (7 + printProductID.length() + printAmount.length()));
+            for (int i = 0; i < informationLength[0]; i++) {
+                System.out.print(" ");
+            }
+            System.out.print("Nr. " + printProductID + " (" + printAmount + ")");
+            for (int i = 0; i < informationLength[1]; i++) {
+                System.out.print(" ");
+            }
+
+            System.out.print("║\n║");
+
+            String printPrice = String.format("%04.2f", vendingMachine.getItems().get(j).getPrice());
+
+            informationLength = spaceDistance(length, (4 + printPrice.length()));
+            for (int i = 0; i < informationLength[0]; i++) {
+                System.out.print(" ");
+            }
+            System.out.print("CHF " + printPrice);
+            for (int i = 0; i < informationLength[1]; i++) {
+                System.out.print(" ");
+            }
+            System.out.println("║");
+
+            System.out.print("╚");
+            for (int i = 0; i < length; i++) {
+                System.out.print("═");
+            }
+            System.out.println("╝");
         }
-        System.out.println("╗");
-
-
-        System.out.print("║");
-        for (int i = 0; i < 10; i++) {
-            System.out.print(" ");
-        }
-        System.out.println("║");
-
-
-        System.out.print("╚");
-        for (int i = 0; i < 10; i++) {
-            System.out.print("═");
-        }
-        System.out.println("╝");
-
-//        System.out.println("╩");
-//        System.out.println("╦");
-//        System.out.println("╠");
-//        System.out.println("╬");
-//        System.out.println("╣");
     }
+
+
+    public int stringLength(VendingMachine vendingMachine) {
+        int maxStringLength = 13;
+        for (int i = 0; i < vendingMachine.getItems().size(); i++) {
+            maxStringLength = Math.max(maxStringLength, vendingMachine.getItems().get(i).getName().length());
+        }
+        return maxStringLength + 2;
+    }
+
+    public int[] spaceDistance(int maxLength, int minLength) {
+        int[] spaceGap = new int[2];
+        spaceGap[0] = (maxLength - minLength) / 2;
+
+        if ((maxLength - minLength) % 2 == 1) {
+            spaceGap[1] = spaceGap[0] + 1;
+        } else {
+            spaceGap[1] = spaceGap[0];
+        }
+        return spaceGap;
+    }
+
 }
