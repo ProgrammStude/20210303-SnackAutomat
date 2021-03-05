@@ -4,43 +4,6 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class Methods {
-    public Methods() {
-    }
-
-    public static Double readDouble() {
-        Scanner scn = new Scanner(System.in);
-
-        while(!scn.hasNextDouble()) {
-            System.out.println("Error, wrong Input, try again: ");
-            scn.next();
-        }
-
-        return scn.nextDouble();
-    }
-
-    public static boolean readBoolean() {
-        Scanner scn = new Scanner(System.in);
-
-        while(!scn.hasNextBoolean()) {
-            System.out.println("Error, wrong Input, try again: ");
-            scn.next();
-        }
-
-        boolean input = scn.nextBoolean();
-        return input;
-    }
-
-    public static Float readFloat() {
-        Scanner scn = new Scanner(System.in);
-
-        while(!scn.hasNextFloat()) {
-            System.out.println("Error, wrong Input, try again: ");
-            scn.next();
-        }
-
-        float input = scn.nextFloat();
-        return input;
-    }
 
     public static Integer readRangedInt(int min, int max) {
         Scanner scn = new Scanner(System.in);
@@ -52,7 +15,7 @@ public class Methods {
             scn.nextLine();
         }
 
-        while(input < min || input > max) {
+        while (input < min || input > max) {
             System.out.println("There was an Error, please repeat your input");
 
             try {
@@ -79,46 +42,15 @@ public class Methods {
                 scn.nextLine();
                 fail = true;
             }
-        } while(fail);
+        } while (fail);
 
         return input;
-    }
-
-    public static String readString() {
-        Scanner scn = new Scanner(System.in);
-        String string = scn.nextLine();
-        return string;
-    }
-
-    public static String readSpecChar(String chars) {
-        Scanner scn = new Scanner(System.in);
-
-        String string;
-        boolean fail;
-        do {
-            fail = false;
-            int correctCounter = 0;
-            string = scn.nextLine();
-            int strLength = string.length();
-
-            for(int i = 0; i < strLength; ++i) {
-                if (string.charAt(i) == chars.charAt(0) || string.charAt(i) == chars.charAt(1)) {
-                    ++correctCounter;
-                }
-            }
-
-            if (correctCounter != strLength) {
-                fail = true;
-            }
-        } while(fail);
-
-        return string;
     }
 
     public static String readSpecInput(double exept1, String exept2, double rangeMin, double rangeMax) {
         Scanner scn = new Scanner(System.in);
         String string = scn.nextLine();
-        double stringInt = 0.0;
+        double stringInt;
 
         try {
             stringInt = Double.parseDouble(string);
@@ -130,12 +62,12 @@ public class Methods {
             string = Double.toString(stringInt);
         }
 
-        while(!((stringInt == exept1) || (string.equals(exept2)) || ((stringInt >= rangeMin && stringInt <= rangeMax)))) {
+        while (!((stringInt == exept1) || (string.equals(exept2)) || ((stringInt >= rangeMin && stringInt <= rangeMax)))) {
             System.out.println("There was an Error, please repeat your input");
             string = scn.nextLine();
 
             try {
-                stringInt = (double)Integer.parseInt(string);
+                stringInt = Integer.parseInt(string);
             } catch (NumberFormatException var11) {
                 stringInt = -1.0;
             }
@@ -159,7 +91,7 @@ public class Methods {
             string = scn.nextLine();
             int strLength = string.length();
 
-            for(int i = 0; i < strLength; ++i) {
+            for (int i = 0; i < strLength; ++i) {
                 if (string.charAt(i) >= 'a' && string.charAt(i) <= 'z' || string.charAt(i) >= 'A' && string.charAt(i) <= 'Z') {
                     ++correctCounter;
                 }
@@ -168,30 +100,22 @@ public class Methods {
             if (correctCounter != strLength) {
                 fail = true;
             }
-        } while(fail);
+        } while (fail);
 
         return string;
     }
 
-    public static void delay(int min, int max){
+    public static void delay(int min, int max) {
         Random random = new Random();
-        int timeToSleep = min+random.nextInt(max-min+1);
-        try
-        {
+        int timeToSleep = min + random.nextInt(max - min + 1);
+        try {
             Thread.sleep(random.nextInt(timeToSleep));
-        }
-        catch(InterruptedException ex)
-        {
+        } catch (InterruptedException ex) {
             Thread.currentThread().interrupt();
         }
     }
 
-
-    public static String removeSpecialChar(String string) {
-        return string.replaceAll("[^a-zA-Z0-9]", "");
-    }
-
-    public static double parseStringToDouble(String string){
+    public static double parseStringToDouble(String string) {
         double varDouble;
         try {
             varDouble = Double.parseDouble(string);
@@ -200,7 +124,8 @@ public class Methods {
         }
         return varDouble;
     }
-    public static int parseStringToInt(String string){
+
+    public static int parseStringToInt(String string) {
         int varInt;
         double varDouble;
         try {

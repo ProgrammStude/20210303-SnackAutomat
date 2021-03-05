@@ -32,10 +32,6 @@ public class Item {
         return productId;
     }
 
-    public void setProductId(int productId) {
-        this.productId = productId;
-    }
-
     public String getName() {
         return name;
     }
@@ -44,5 +40,3 @@ public class Item {
         this.name = name;
     }
 }
-
-

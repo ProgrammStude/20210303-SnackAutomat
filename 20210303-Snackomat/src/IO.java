@@ -1,8 +1,5 @@
-
-import java.util.Scanner;
-
 public class IO {
-    private String stopVar = "x";
+    private final String stopVar = "x";
 
     public void inputOutputManagement(VendingMachine vendingMachine) {
         while (true) {
@@ -21,7 +18,7 @@ public class IO {
             String money = Methods.readSpecInput(vendingMachine.getKey(), stopVar, 0.05, 100);
             if (abortProcess(money)) continue;
             moneyDouble = Methods.parseStringToDouble(money);
-            while (vendingMachine.checkAndReturnMoney(moneyDouble, productInt) == 0) {
+            while (vendingMachine.checkAndReturnMoney(moneyDouble, productInt)) {
                 String missingMoney = String.format("%.2f", vendingMachine.getItems().get(productInt).getPrice() - moneyDouble);
                 System.out.println("Give me CHF " + missingMoney);
                 money = Methods.readSpecInput(vendingMachine.getKey(), stopVar, 0.05, 50);
@@ -62,7 +59,7 @@ public class IO {
                 break;
             case 3:
                 System.out.println("Product Number: ");
-                productInt = Methods.readRangedInt(1, 50)-1;
+                productInt = Methods.readRangedInt(1, 50) - 1;
                 if (abortProcess(productNumber)) return false;
                 do {
                     System.out.println("New product name: ");
@@ -77,7 +74,6 @@ public class IO {
         }
         return true;
     }
-
 
     public static boolean abortProcess(String check) {
         boolean willAbort = false;
@@ -99,7 +95,7 @@ public class IO {
         }
         System.out.print("╗\n║");
         //print content
-        for (int j = 0; j < vendingMachine.getItems().size() / width && j < lengthItems; j++){
+        for (int j = 0; j < vendingMachine.getItems().size() / width && j < lengthItems; j++) {
             //Top line Item
             for (int i = 0; i < width; i++) {
                 System.out.print(" ╔");
@@ -113,6 +109,10 @@ public class IO {
             //Line with name
             int[] informationLength;
             for (int k = 0; k < width; k++) {
+                String tmpName = vendingMachine.getItems().get(j * width + k).getName();
+                if (vendingMachine.getItems().get(j * width + k).getAmount() == 0) {
+                    vendingMachine.getItems().get(j * width + k).setName("Empty");
+                }
                 informationLength = spaceDistance(length, vendingMachine.getItems().get(j * width + k).getName().length());
                 System.out.print(" ║");
                 for (int i = 0; i < informationLength[0]; i++) {
@@ -123,6 +123,7 @@ public class IO {
                     System.out.print(" ");
                 }
                 System.out.print("║ ");
+                vendingMachine.getItems().get(j * width + k).setName(tmpName);
             }
             System.out.print("║\n║");
 
@@ -146,6 +147,10 @@ public class IO {
 
             //Line with Price
             for (int k = 0; k < width; k++) {
+                double tmpPrice = vendingMachine.getItems().get(j * width + k).getPrice();
+                if(vendingMachine.getItems().get(j * width + k).getAmount() == 0){
+                    vendingMachine.getItems().get(j * width + k).setPrice(0);
+                }
                 String printPrice = String.format("%04.2f", vendingMachine.getItems().get(j * width + k).getPrice());
                 System.out.print(" ║");
                 informationLength = spaceDistance(length, (4 + printPrice.length()));
@@ -157,11 +162,12 @@ public class IO {
                     System.out.print(" ");
                 }
                 System.out.print("║ ");
+                vendingMachine.getItems().get(j * width + k).setPrice(tmpPrice);
             }
 
             //Bottom line of Item
             System.out.print("║\n║");
-            for (int k = 0; k < width ; k++) {
+            for (int k = 0; k < width; k++) {
                 System.out.print(" ╚");
                 for (int i = 0; i < length; i++) {
                     System.out.print("═");
@@ -184,7 +190,6 @@ public class IO {
         System.out.println("╝");
 
     }
-
 
     public int stringLength(VendingMachine vendingMachine) {
         int maxStringLength = 13;

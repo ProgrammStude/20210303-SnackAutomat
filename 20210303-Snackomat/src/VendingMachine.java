@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class VendingMachine {
 
-    private ArrayList<Item> items = new ArrayList<>();
+    private ArrayList<Item> items = new ArrayList<Item>();
     private double register;
     private int[] size;
     private int key;
@@ -51,24 +51,22 @@ public class VendingMachine {
         }
     }
 
-    public int checkAndReturnMoney(double money, int productId) {
+    public boolean checkAndReturnMoney(double money, int productId) {
        for (Item i: items) {
             if (i.getProductId() == (productId)){
                 if (i.getPrice() > money){
-                    return 0;
+                    return true;
                 }
                 else {
                     buy(i);
                     System.out.printf("Exchange: %.2f\n", (money - i.getPrice()));
-                    Methods.delay(7000,7000);
+//                    Methods.delay(7000,7000);
                 }
                 break;
             }
         }
-        return 1;
-
+        return false;
     }
-
 
     public boolean changeItem(int productId, String newProductName) {
         Item newProduct = null;
@@ -105,17 +103,8 @@ public class VendingMachine {
         return true;
     }
 
-
-    public boolean checkKey() {
-        return false;
-    }
-
     public ArrayList<Item> getItems() {
         return items;
-    }
-
-    public void setItems(ArrayList items) {
-        this.items = items;
     }
 
     public double getRegister() {
@@ -130,15 +119,8 @@ public class VendingMachine {
         return size[index];
     }
 
-    public void setSize(int[] size) {
-        this.size = size;
-    }
-
     public int getKey() {
         return key;
     }
 
-    public void setKey(int key) {
-        this.key = key;
-    }
 }
