@@ -30,7 +30,7 @@ public class VendingMachine {
     public void fill() {
         items.clear();
         double[] price = {3.50, 3.50, 3.00, 3.50, 3.50, 2.20, 2.20, 2.10, 2.50, 2.50, 2.80, 2.50, 2.50, 3.10, 3.10,2.80};
-        int amount = 10;
+        int amount = 1;
         String[] product = {"Coca Cola", "Coca Cola", "Water", "Fanta", "Sprite", "Snickers", "Snickers", "Mars",
                 "Twix", "Twix", "Maltesers", "Chewing Gum (Mint)", "Chewing Gum (Blue Berry)", "Oreo Cookie",
                 "Oreo Cookie", "Crisps"};
@@ -50,24 +50,20 @@ public class VendingMachine {
 
 
 
-    public int checkMoney(double money, int productId) {
+    public boolean checkMoney(double money, int productId) {
        for (Item i: items) {
             if (i.getProductId() == (productId)){
                 if (i.getPrice() > money){
-                    return 0;
-                }
-                else if (i.getAmount() <= 0){
-                    return 1;
+                    return false;
                 }
                 else {
                     buy(i, money);
-                    Methods.delay(7000,7000);
-
+                    //Methods.delay(7000,7000);
                 }
                 break;
             }
         }
-        return 2;
+        return true;
     }
 
     public void buy(Item i, double money) {
