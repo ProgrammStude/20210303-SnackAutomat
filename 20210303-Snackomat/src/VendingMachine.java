@@ -76,6 +76,9 @@ public class VendingMachine {
                 f.setPrice(newProduct.getPrice());
                 f.setAmount(newProduct.getAmount());
                 f.setName(newProductName);
+                newProduct.setName(f.getName());
+                newProduct.setPrice(f.getPrice());
+                newProduct.setAmount(f.getAmount());
             }
         }
     }
