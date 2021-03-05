@@ -9,6 +9,7 @@ public class IO {
             double productDouble;
             double moneyDouble;
             int moneyInt;
+            String stop = "x";
             System.out.println("Product Number: ");
             String productNumber = Methods.readSpecInput(vendingMachine.getKey(), "x", 1, 50);
             if (abortProcess(productNumber)) break;

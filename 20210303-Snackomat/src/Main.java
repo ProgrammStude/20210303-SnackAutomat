@@ -8,5 +8,6 @@ public class Main {
         IO io = new IO();
 
         io.inputOutputManagement(vendingMachine);
+
     }
 }
