@@ -14,11 +14,7 @@ public class VendingMachine {
         this.items = fillDefault();
     }
 
-    public void buy(Item f) {
-        System.out.println("Here is your: "+ f.getName());
-        setRegister(getRegister()+f.getPrice());
-        f.setAmount(f.getAmount()-1);
-    }
+
 
     public Item createItem(double price, int amount, int productID, String name) {
         return new Item(price, amount, productID, name);
@@ -51,21 +47,35 @@ public class VendingMachine {
         }
     }
 
-    public boolean checkAndReturnMoney(double money, int productId) {
+
+
+
+    public int checkMoney(double money, int productId) {
        for (Item i: items) {
             if (i.getProductId() == (productId)){
                 if (i.getPrice() > money){
-                    return true;
+                    return 0;
+                }
+                else if (i.getAmount() <= 0){
+                    return 1;
                 }
                 else {
-                    buy(i);
-                    System.out.printf("Exchange: %.2f\n", (money - i.getPrice()));
-//                    Methods.delay(7000,7000);
+                    buy(i, money);
+                    Methods.delay(7000,7000);
+
                 }
                 break;
             }
         }
-        return false;
+        return 2;
+    }
+
+    public void buy(Item i, double money) {
+        IO io = new IO();
+        io.printBoughtItem(i.getName(),money,i.getPrice());
+        setRegister(getRegister()+i.getPrice());
+        i.setAmount(i.getAmount()-1);
+
     }
 
     public boolean changeItem(int productId, String newProductName) {
