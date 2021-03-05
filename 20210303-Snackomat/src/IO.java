@@ -250,7 +250,7 @@ public class IO {
     }
 
     public void printRegister(double register){
-        
+        System.out.println(register);
     }
 }
 
