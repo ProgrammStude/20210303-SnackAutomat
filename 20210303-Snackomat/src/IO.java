@@ -13,10 +13,10 @@ public class IO {
             System.out.println("Product Number: ");
             String productNumber = Methods.readSpecInput(vendingMachine.getKey(), stopVar, 1, 15);
             if (abortProcess(productNumber)) continue;
-            productInt = Methods.parseStringToInt(productNumber);
-            productDouble = Methods.parseStringToDouble(productNumber);
+            productInt = Methods.parseStringToInt(productNumber)-1;
 
-            if (productInt == vendingMachine.getKey()) {
+
+            if (productInt+1 == vendingMachine.getKey()) {
                 if (loginAdmin(vendingMachine, productNumber)) continue;
             }
 
