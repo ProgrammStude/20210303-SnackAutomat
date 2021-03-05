@@ -56,7 +56,7 @@ public class IO {
         }
     }
 
-    public boolean loginAdmin(VendingMachine vendingMachine) {
+    public boolean loginAdmin(VendingMachine vendingMachine, double register) {
         int productInt;
         String productNumber;
         String productName;
@@ -68,7 +68,7 @@ public class IO {
         }
         System.out.println("]\n");
         System.out.println("What do you want to do?\nRefill Machine(1), Change Prize of a Product(2)," +
-                " Swap a Product(3)");
+                " Swap a Product(3), Show how much money you have(4)");
         String action = Methods.readSpecInput(vendingMachine.getKey(), stopVar, 1, 3);
         if (abortProcess(action)) return false;
         int actionInt = Methods.parseStringToInt(action);
