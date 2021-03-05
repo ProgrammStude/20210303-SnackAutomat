@@ -4,8 +4,6 @@ import java.util.Scanner;
 public class IO {
     private String stopVar = "x";
     public void inputOutputManagement(VendingMachine vendingMachine) {
-        vendingMachine.fill();
-        printVendingMachine(vendingMachine);
         while (true) {
             printVendingMachine(vendingMachine);
             int productInt;
