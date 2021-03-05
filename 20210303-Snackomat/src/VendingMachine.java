@@ -11,6 +11,7 @@ public class VendingMachine {
         this.register = register;
         this.size = size;
         this.key = key;
+        this.items = fillDefault();
     }
 
     public void buy(Item f) {
@@ -22,6 +23,13 @@ public class VendingMachine {
     public Item createItem(double price, int amount, int productID, String name) {
         Item item = new Item(price, amount, productID, name);
         return item;
+    }
+
+    public ArrayList<Item> fillDefault(){
+        for (int i = 0; i < 15; i++) {
+            items.add(createItem(0, 0, i, "Empty"));
+        }
+        return items;
     }
 
     public void fill() {
