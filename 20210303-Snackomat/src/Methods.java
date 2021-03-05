@@ -28,24 +28,6 @@ public class Methods {
         return input;
     }
 
-    public static Integer readInt() {
-        Scanner scn = new Scanner(System.in);
-        int input = -1;
-
-        boolean fail;
-        do {
-            fail = false;
-
-            try {
-                input = scn.nextInt();
-            } catch (InputMismatchException var4) {
-                scn.nextLine();
-                fail = true;
-            }
-        } while (fail);
-
-        return input;
-    }
 
     public static String readSpecInput(double exept1, String exept2, double rangeMin, double rangeMax) {
         Scanner scn = new Scanner(System.in);

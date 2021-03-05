@@ -2,10 +2,10 @@ import java.util.ArrayList;
 
 public class VendingMachine {
 
-    private ArrayList<Item> items = new ArrayList<Item>();
+    private ArrayList<Item> items = new ArrayList<>();
     private double register;
-    private int[] size;
-    private int key;
+    private final int[] size;
+    private final int key;
 
     public VendingMachine(double register, int[] size, int key) {
         this.register = register;
@@ -13,8 +13,6 @@ public class VendingMachine {
         this.key = key;
         this.items = fillDefault();
     }
-
-
 
     public Item createItem(double price, int amount, int productID, String name) {
         return new Item(price, amount, productID, name);
@@ -30,7 +28,7 @@ public class VendingMachine {
     public void fill() {
         items.clear();
         double[] price = {3.50, 3.50, 3.00, 3.50, 3.50, 2.20, 2.20, 2.10, 2.50, 2.50, 2.80, 2.50, 2.50, 3.10, 3.10,2.80};
-        int amount = 1;
+        int amount = 10;
         String[] product = {"Coca Cola", "Coca Cola", "Water", "Fanta", "Sprite", "Snickers", "Snickers", "Mars",
                 "Twix", "Twix", "Maltesers", "Chewing Gum (Mint)", "Chewing Gum (Blue Berry)", "Oreo Cookie",
                 "Oreo Cookie", "Crisps"};
@@ -47,9 +45,6 @@ public class VendingMachine {
         }
     }
 
-
-
-
     public boolean checkMoney(double money, int productId) {
        for (Item i: items) {
             if (i.getProductId() == (productId)){
@@ -58,7 +53,7 @@ public class VendingMachine {
                 }
                 else {
                     buy(i, money);
-                    //Methods.delay(7000,7000);
+                    Methods.delay(7000,7000);
                 }
                 break;
             }

@@ -5,9 +5,10 @@ public class IO {
 
     public void inputOutputManagement(VendingMachine vendingMachine) {
         while (true) {
-            String productNumber = "";
+            String productNumber;
             printVendingMachine(vendingMachine);
             int productInt = 0;
+            int counter = 0;
             double moneyDouble;
             if (filled == 0){
                 System.out.println("Code: ");
@@ -15,11 +16,15 @@ public class IO {
             }
             else {
                 do {
-                    System.out.println("Product Number: ");
+                    counter-=-1;
+                    if (counter == 1) System.out.println("Product Number: ");
+                    else {
+                        System.out.println("Product Number (Product was Empty): ");
+                    }
                     productNumber = Methods.readSpecInput(vendingMachine.getKey(), stopVar, 1,
                             vendingMachine.getSize(1)*vendingMachine.getSize(0));
-                    if (abortProcess(productNumber)) break;
                     productInt = Methods.parseStringToInt(productNumber)-1;
+                    if (abortProcess(productNumber) || productInt+1 == vendingMachine.getKey()) break;
                 }while (vendingMachine.getItems().get(productInt).getAmount() == 0);
                 if (abortProcess(productNumber)) continue;
 
@@ -53,11 +58,11 @@ public class IO {
 
     public boolean loginAdmin(VendingMachine vendingMachine) {
         int productInt;
-        String productNumber = "";
+        String productNumber;
         String productName;
         System.out.println("Try to log in as Admin");
         System.out.print("[");
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < 19; i++) {
             System.out.print("=");
             Methods.delay(70,80);
         }
@@ -98,15 +103,18 @@ public class IO {
                     if (productName.equals("x") )break;
                 } while (!(vendingMachine.changeItem(productInt, productName)));
                 break;
+            case 4:
+
+                break;
             default:
                 break;
         }
         return true;
     }
 
-    public static boolean abortProcess(String check) {
+    public boolean abortProcess(String check) {
         boolean willAbort = false;
-        if (check.equals("x")) {
+        if (check.equals(stopVar)) {
             willAbort = true;
         }
         return willAbort;
