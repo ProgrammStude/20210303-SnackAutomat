@@ -243,5 +243,9 @@ public class IO {
         System.out.println("Here is your " + name);
         System.out.printf("Exchange: %.2f\n", (money - price));
     }
+
+    public void printRegister(double register){
+        System.out.println(register);
+    }
 }
 
