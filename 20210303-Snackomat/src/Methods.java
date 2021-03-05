@@ -202,8 +202,10 @@ public class Methods {
     }
     public static int parseStringToInt(String string){
         int varInt;
+        double varDouble;
         try {
-            varInt = Integer.parseInt(string);
+            varDouble = parseStringToDouble(string);
+            varInt = (int) varDouble;
         } catch (NumberFormatException var11) {
             varInt = 0;
         }
