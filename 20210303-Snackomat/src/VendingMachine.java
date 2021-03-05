@@ -13,31 +13,10 @@ public class VendingMachine {
         this.key = key;
     }
 
-    public void buy() {/*
-        boolean buyProduct;
-        do {
-            int userIn;
-            System.out.println("Enter the product number: ");
-            userIn = 10;
-            Item userItem = items.get(userIn);
-            System.out.print("Price: " + userItem.getPrice() + "\nEnter money: ");
-            int userMoney = Methods.readInt();
-            while(userItem.getPrice() > userMoney){
-                System.out.println("Not enough Money, enter more or press 'x' to abort ");
-                userMoney+= Methods.readInt();
-            }
-            if(userItem.getPrice() < userMoney){
-                System.out.println("Return: " + (userMoney - userItem.getPrice()));
-            }
-            System.out.println("Buy an other Product? yes = 1/ no = 0");
-            int repeatBuy = Methods.readInt();
-            if(repeatBuy == 1){
-                buyProduct = true;
-            }else{
-                buyProduct = false;
-            }
-        } while (buyProduct);
-*/
+    public void buy(Item f) {
+        System.out.println("Here is your: "+ f.getName());
+        setRegister(getRegister()+f.getPrice());
+        f.setAmount(f.getAmount()-1);
     }
 
     public Item createItem(double price, int amount, int productID, String name) {
@@ -71,9 +50,8 @@ public class VendingMachine {
                     return 0;
                 }
                 else {
-                    System.out.println("Here is your: "+ f.getName());
+                    buy(f);
                     System.out.println("Exchange: " + (money - f.getPrice()));
-                    setRegister(getRegister()+f.getPrice());
                 }
                 break;
             }
@@ -84,7 +62,6 @@ public class VendingMachine {
 
 
     public void changeItem(int productId, String newProductName) {
-        int newProductId;
         Item newProduct = null;
         for (Item f: items) {
             if (f.getName().equals(newProductName)) {
@@ -94,7 +71,8 @@ public class VendingMachine {
         for (Item f: items) {
             if (f.getProductId() == (productId)) {
                 f.setPrice(newProduct.getPrice());
-
+                f.setAmount(newProduct.getAmount());
+                f.setName(newProductName);
             }
         }
     }
