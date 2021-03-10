@@ -56,6 +56,7 @@ public class IO {
 
     public boolean loginAdmin(VendingMachine vendingMachine) {
         int productInt;
+        int rangeMax = 0;
         String productNumber;
         String productName;
         System.out.println("Try to log in as Admin");
@@ -70,7 +71,13 @@ public class IO {
         System.out.println("]\n");
         System.out.println("What do you want to do?\nRefill machine(1), Change prize of a product(2)," +
                 " Swap a product(3), Get the money out of your register(4)");
-        String action = Methods.readSpecInput(vendingMachine.getKey(), stopVar, 1, 4);
+        if (filled == 0) {
+            rangeMax = 1;
+        }
+        else {
+            rangeMax = 4;
+        }
+        String action = Methods.readSpecInput(vendingMachine.getKey(), stopVar, 1, rangeMax);
         if (abortProcess(action)) return false;
         int actionInt = Methods.parseStringToInt(action);
         switch (actionInt) {
