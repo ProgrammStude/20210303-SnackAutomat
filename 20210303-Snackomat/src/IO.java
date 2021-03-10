@@ -11,27 +11,27 @@ public class IO {
             int productInt = 0;
             int counter = 0;
             double moneyDouble;
-            if (filled == 0){
+            if (filled == 0) {
                 System.out.println("Code: ");
-                productInt = Methods.readRangedInt(vendingMachine.getKey(),vendingMachine.getKey())-1;
-            }
-            else {
+                productInt = Methods.readRangedInt(vendingMachine.getKey(), vendingMachine.getKey()) - 1;
+            } else {
                 do {
-                    counter-=-1;
+                    counter -= -1;
                     if (counter == 1) System.out.println("Product Number: ");
                     else {
                         System.out.println("Product Number (Product was Empty): ");
                     }
                     productNumber = Methods.readSpecInput(vendingMachine.getKey(), stopVar, 1,
-                            vendingMachine.getSize(1)*vendingMachine.getSize(0));
-                    productInt = Methods.parseStringToInt(productNumber)-1;
-                    if (abortProcess(productNumber) || productInt+1 == vendingMachine.getKey()) break;
-                }while (vendingMachine.getItems().get(productInt).getAmount() == 0);
+                            vendingMachine.getSize(1) * vendingMachine.getSize(0));
+                    productInt = Methods.parseStringToInt(productNumber) - 1;
+                    if (abortProcess(productNumber) || productInt + 1 == vendingMachine.getKey()) break;
+                } while (vendingMachine.getItems().get(productInt).getAmount() == 0);
                 if (abortProcess(productNumber)) continue;
             }
 
             if (productInt + 1 == vendingMachine.getKey()) {
-                if (loginAdmin(vendingMachine)) continue; continue;
+                if (loginAdmin(vendingMachine)) continue;
+                continue;
             }
             String printPrice = String.format("%.2f", vendingMachine.getItems().get(productInt).getPrice());
             System.out.println("Give me CHF " + printPrice);
@@ -39,15 +39,15 @@ public class IO {
             if (abortProcess(money)) continue;
             moneyDouble = Methods.parseStringToDouble(money);
 
-            while (!(vendingMachine.checkMoney(moneyDouble,productInt))){
+            while (!(vendingMachine.checkMoney(moneyDouble, productInt))) {
                 String missingMoney = String.format("%.2f",
                         vendingMachine.getItems().get(productInt).getPrice() - moneyDouble);
                 System.out.println("Give me CHF " + missingMoney);
                 money = Methods.readSpecInput(vendingMachine.getKey(), stopVar, 0.05, 100);
-                if (abortProcess(money)){
-                    String moneyRefund = String.format("%.2f",moneyDouble);
+                if (abortProcess(money)) {
+                    String moneyRefund = String.format("%.2f", moneyDouble);
                     System.out.println("Refund CHF " + moneyRefund);
-                    Methods.delay(3000,3000);
+                    Methods.delay(3000, 3000);
                     break;
                 }
                 moneyDouble += Methods.parseStringToDouble(money);
@@ -65,19 +65,20 @@ public class IO {
         System.out.print("[");
         for (int i = 0; i < 18; i++) {
             System.out.print("=");
-            Methods.delay(20,50);
+            Methods.delay(20, 50);
         }
-        Methods.delay(90,90);
+        Methods.delay(90, 90);
         System.out.print("==");
         System.out.println("]\n");
         System.out.println("What do you want to do?\nRefill machine(1), Change prize of a product(2)," +
-                " Swap a product(3), Get the money out of your register(4), Shut the machine down(9)");
+                " Swap a product(3), Get the money out of your register(4), Add new Item to vending machine(5), " +
+                "Shut the machine down(9)");
         if (filled == 0) {
             rangeMax = 1;
             System.out.println("---> Machine is empty please refill first!");
         }
         else {
-            rangeMax = 4;
+            rangeMax = 5;
         }
         String action = Methods.readSpecInput(9, stopVar, 1, rangeMax);
         if (abortProcess(action)) return false;
@@ -90,11 +91,11 @@ public class IO {
             case 2:
                 System.out.println("Product Number: ");
                 productNumber = Methods.readSpecInput(vendingMachine.getKey(), stopVar, 1,
-                        vendingMachine.getSize(1)*vendingMachine.getSize(0));
+                        vendingMachine.getSize(1) * vendingMachine.getSize(0));
                 if (abortProcess(productNumber)) return false;
-                productInt = Methods.parseStringToInt(productNumber)-1;
+                productInt = Methods.parseStringToInt(productNumber) - 1;
                 System.out.println("New Price: ");
-                String newPriceString = Methods.readSpecInput(vendingMachine.getKey(),stopVar,0.05,
+                String newPriceString = Methods.readSpecInput(vendingMachine.getKey(), stopVar, 0.05,
                         100);
                 if (abortProcess(newPriceString)) return false;
                 double newPrice = Methods.parseStringToDouble(newPriceString);
@@ -103,28 +104,40 @@ public class IO {
             case 3:
                 System.out.println("Product Number: ");
                 productNumber = Methods.readSpecInput(1, stopVar, 1,
-                        vendingMachine.getSize(1)*vendingMachine.getSize(0));
+                        vendingMachine.getSize(1) * vendingMachine.getSize(0));
                 if (abortProcess(productNumber)) return false;
-                productInt = Methods.parseStringToInt(productNumber)-1;
+                productInt = Methods.parseStringToInt(productNumber) - 1;
 
                 do {
                     System.out.println("Possible new Products: ");
-                    for (Item i: vendingMachine.items) {
-                        if (i.getProductId()>14){
+                    for (Item i : vendingMachine.items) {
+                        if (i.getProductId() > 14) {
                             System.out.println(vendingMachine.getItems().get(i.getProductId()).getName());
                         }
                     }
-
-
                     System.out.println("New product name: ");
                     productName = Methods.readAlphabeticString();
-                    if (productName.equals("x") )break;
+                    if (productName.equals(stopVar)) break;
                 } while (!(vendingMachine.changeItem(productInt, productName)));
                 break;
             case 4:
                 String printRegister = String.format("%.2f", vendingMachine.clearRegister());
                 System.out.println("Money in the register: CHF " + printRegister);
                 Methods.delay(3000, 3000);
+                break;
+            case 5:
+                System.out.println("Enter product name, except 'x': ");
+                String name = Methods.readAlphabeticString();
+                if (abortProcess(name)) return false;
+                System.out.println("Enter product price: ");
+                String priceString = Methods.readSpecInput(1, stopVar, 0.05, 100);
+                if (abortProcess(priceString)) return false;
+                double price = Methods.parseStringToDouble(priceString);
+                System.out.println("Enter product amount: ");
+                String amountString = Methods.readSpecInput(1, stopVar, 0, 10);
+                if (abortProcess(priceString)) return false;
+                int amount = Methods.parseStringToInt(amountString);
+                vendingMachine.items.add(vendingMachine.createItem(price, amount, vendingMachine.items.size(), name));
                 break;
             case 9:
                 System.out.println("Vending Machine shuts down");
@@ -170,7 +183,8 @@ public class IO {
                 if (vendingMachine.getItems().get(j * width + k).getAmount() == 0) {
                     vendingMachine.getItems().get(j * width + k).setName("Empty");
                 }
-                informationLength = spaceDistance(length, vendingMachine.getItems().get(j * width + k).getName().length());
+                informationLength = spaceDistance(length,
+                        vendingMachine.getItems().get(j * width + k).getName().length());
                 System.out.print(" ║");
                 for (int i = 0; i < informationLength[0]; i++) {
                     System.out.print(" ");
@@ -187,7 +201,8 @@ public class IO {
             //Line with productId and Amount
             for (int k = 0; k < width; k++) {
                 System.out.print(" ║");
-                String printProductID = String.format("%03d", vendingMachine.getItems().get(j * width + k).getProductId() + 1);
+                String printProductID = String.format("%03d",
+                        vendingMachine.getItems().get(j * width + k).getProductId() + 1);
                 String printAmount = String.format("%02d", vendingMachine.getItems().get(j * width + k).getAmount());
 
                 informationLength = spaceDistance(length, (7 + printProductID.length() + printAmount.length()));
@@ -205,7 +220,7 @@ public class IO {
             //Line with Price
             for (int k = 0; k < width; k++) {
                 double tmpPrice = vendingMachine.getItems().get(j * width + k).getPrice();
-                if(vendingMachine.getItems().get(j * width + k).getAmount() == 0){
+                if (vendingMachine.getItems().get(j * width + k).getAmount() == 0) {
                     vendingMachine.getItems().get(j * width + k).setPrice(0);
                 }
                 String printPrice = String.format("%04.2f", vendingMachine.getItems().get(j * width + k).getPrice());
@@ -267,7 +282,8 @@ public class IO {
         }
         return spaceGap;
     }
-    public void printBoughtItem(String name, double money, double price){
+
+    public void printBoughtItem(String name, double money, double price) {
         System.out.println("Here is your " + name);
         System.out.printf("Exchange: %.2f\n", (money - price));
     }
