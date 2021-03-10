@@ -1,26 +1,29 @@
 public class IO {
 
-    private final String stopVar = "x";
+    private final String stopVar = "r";
     private int filled = 0;
     private boolean loop = true;
 
     public void inputOutputManagement(VendingMachine vendingMachine) {
         while (loop) {
             String productNumber;
-            printVendingMachine(vendingMachine);
             int productInt = 0;
             int counter = 0;
             double moneyDouble;
+
+            printVendingMachine(vendingMachine);
+            //First iteration -> Machine needs to be filled
             if (filled == 0) {
                 System.out.println("Code: ");
                 productInt = Methods.readRangedInt(vendingMachine.getKey(), vendingMachine.getKey()) - 1;
-            } else {
+            }
+            //Next iterations -> Machine is filled, products can be bought
+            else {
+                //Loop to get the right message if the product was empty.
                 do {
-                    counter -= -1;
+                    counter += 1;
                     if (counter == 1) System.out.println("Product Number: ");
-                    else {
-                        System.out.println("Product Number (Product was Empty): ");
-                    }
+                    else System.out.println("Product Number (Product was Empty): ");
                     productNumber = Methods.readSpecInput(vendingMachine.getKey(), stopVar, 1,
                             vendingMachine.getSize(1) * vendingMachine.getSize(0));
                     productInt = Methods.parseStringToInt(productNumber) - 1;
@@ -29,16 +32,16 @@ public class IO {
                 if (abortProcess(productNumber)) continue;
             }
 
-            if (productInt + 1 == vendingMachine.getKey()) {
-                if (loginAdmin(vendingMachine)) continue;
-                continue;
-            }
+            //Admin Login
+            if (productInt + 1 == vendingMachine.getKey()) {if (loginAdmin(vendingMachine)) continue; continue;}
+            //Ask for money
             String printPrice = String.format("%.2f", vendingMachine.getItems().get(productInt).getPrice());
             System.out.println("Give me CHF " + printPrice);
             String money = Methods.readSpecInput(vendingMachine.getKey(), stopVar, 0.05, 100);
             if (abortProcess(money)) continue;
             moneyDouble = Methods.parseStringToDouble(money);
 
+            //Check the given money
             while (!(vendingMachine.checkMoney(moneyDouble, productInt))) {
                 String missingMoney = String.format("%.2f",
                         vendingMachine.getItems().get(productInt).getPrice() - moneyDouble);
@@ -58,6 +61,7 @@ public class IO {
     public boolean loginAdmin(VendingMachine vendingMachine) {
         int productInt;
         int rangeMax = 0;
+        int actionInt;
         String productNumber;
         String productName;
         System.out.println("Try to log in as Admin");
@@ -77,31 +81,35 @@ public class IO {
             rangeMax = 1;
             System.out.println("---> Machine is empty please refill first!");
         }
-        else {
-            rangeMax = 5;
-        }
+        else rangeMax = 5;
         String action = Methods.readSpecInput(9, stopVar, 1, rangeMax);
         if (abortProcess(action)) return false;
-        int actionInt = Methods.parseStringToInt(action);
+        actionInt = Methods.parseStringToInt(action);
         switch (actionInt) {
             case 1:
+                //Refill machine
                 vendingMachine.fill();
                 filled = 1;
                 break;
             case 2:
+                //Change price of product
+                double newPrice;
                 System.out.println("Product Number: ");
                 productNumber = Methods.readSpecInput(1, stopVar, 1,
                         vendingMachine.getSize(1) * vendingMachine.getSize(0));
                 if (abortProcess(productNumber)) return false;
                 productInt = Methods.parseStringToInt(productNumber) - 1;
+
                 System.out.println("New Price: ");
-                String newPriceString = Methods.readSpecInput(1, stopVar, 0.05,
-                        100);
+                String newPriceString = Methods.readSpecInput(1, stopVar, 0.05,100);
                 if (abortProcess(newPriceString)) return false;
-                double newPrice = Methods.parseStringToDouble(newPriceString);
+                newPrice = Methods.parseStringToDouble(newPriceString);
+
                 vendingMachine.changePrice(productInt, newPrice);
                 break;
+
             case 3:
+                //Swap an existing product with an other existing Product
                 System.out.println("Product Number: ");
                 productNumber = Methods.readSpecInput(1, stopVar, 1,
                         vendingMachine.getSize(1) * vendingMachine.getSize(0));
@@ -120,32 +128,41 @@ public class IO {
                     if (productName.equals(stopVar)) break;
                 } while (!(vendingMachine.changeItem(productInt, productName)));
                 break;
+
             case 4:
                 String printRegister = String.format("%.2f", vendingMachine.clearRegister());
                 System.out.println("Money in the register: CHF " + printRegister);
                 Methods.delay(3000, 3000);
                 break;
+
             case 5:
                 String name;
+                double price;
+                int amount;
                 do {
                     System.out.println("Enter product name, except 'x': ");
                     name = Methods.readAlphabeticString();
                 } while (name.equals(""));
                 if (abortProcess(name)) return false;
+
                 System.out.println("Enter product price: ");
                 String priceString = Methods.readSpecInput(1, stopVar, 0.05, 100);
                 if (abortProcess(priceString)) return false;
-                double price = Methods.parseStringToDouble(priceString);
+                price = Methods.parseStringToDouble(priceString);
+
                 System.out.println("Enter product amount: ");
                 String amountString = Methods.readSpecInput(1, stopVar, 0, 10);
                 if (abortProcess(priceString)) return false;
-                int amount = Methods.parseStringToInt(amountString);
+                amount = Methods.parseStringToInt(amountString);
+
                 vendingMachine.items.add(vendingMachine.createItem(price, amount, vendingMachine.items.size(), name));
                 break;
+
             case 9:
                 System.out.println("Vending Machine shuts down");
                 loop = false;
                 break;
+
             default:
                 break;
         }
@@ -290,5 +307,4 @@ public class IO {
         System.out.println("Here is your " + name);
         System.out.printf("Exchange: %.2f\n", (money - price));
     }
-
 }
