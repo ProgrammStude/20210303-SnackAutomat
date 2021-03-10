@@ -90,12 +90,12 @@ public class IO {
                 break;
             case 2:
                 System.out.println("Product Number: ");
-                productNumber = Methods.readSpecInput(vendingMachine.getKey(), stopVar, 1,
+                productNumber = Methods.readSpecInput(1, stopVar, 1,
                         vendingMachine.getSize(1) * vendingMachine.getSize(0));
                 if (abortProcess(productNumber)) return false;
                 productInt = Methods.parseStringToInt(productNumber) - 1;
                 System.out.println("New Price: ");
-                String newPriceString = Methods.readSpecInput(vendingMachine.getKey(), stopVar, 0.05,
+                String newPriceString = Methods.readSpecInput(1, stopVar, 0.05,
                         100);
                 if (abortProcess(newPriceString)) return false;
                 double newPrice = Methods.parseStringToDouble(newPriceString);
@@ -289,4 +289,3 @@ public class IO {
     }
 
 }
-

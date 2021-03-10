@@ -36,9 +36,9 @@ public class VendingMachine {
         double[] price = {3.50, 3.50, 3.00, 3.50, 3.50, 2.20, 2.20, 2.10, 2.50, 2.50, 2.80, 2.50, 2.50, 3.10, 3.10,2.80,
         3.10};
         int amount = 10;
-        String[] product = {"Coca Cola", "Coca Cola", "Water", "Fanta", "Sprite", "Snickers", "Snickers", "Mars",
-                "Twix", "Twix", "Maltesers", "Chewing Gum (Mint)", "Chewing Gum (Blue Berry)", "Oreo Cookie",
-                "Oreo Cookie", "Crisps","Chips"};
+        String[] product = {"CocaCola", "CocaCola", "Water", "Fanta", "Sprite", "Snickers", "Snickers", "Mars",
+                "Twix", "Twix", "Maltesers", "ChewingGumMint", "ChewingGumBlueBerry", "OreoCookie",
+                "OreoCookie", "Crisps","Chips"};
         for (int productId = 0; productId < product.length; productId++) {
             items.add(createItem(price[productId], amount, productId, product[productId]));
         }
