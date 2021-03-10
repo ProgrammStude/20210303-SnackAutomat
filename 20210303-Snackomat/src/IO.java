@@ -121,7 +121,9 @@ public class IO {
                 } while (!(vendingMachine.changeItem(productInt, productName)));
                 break;
             case 4:
-                System.out.println(vendingMachine.clearRegister());
+                String printRegister = String.format("%.2f", vendingMachine.clearRegister());
+                System.out.println("Money in the register: CHF " + printRegister);
+                Methods.delay(3000, 3000);
                 break;
             case 9:
                 System.out.println("Vending Machine shuts down");
