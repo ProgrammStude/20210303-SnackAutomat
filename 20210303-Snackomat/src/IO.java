@@ -2,9 +2,10 @@ public class IO {
 
     private final String stopVar = "x";
     private int filled = 0;
+    private boolean loop = true;
 
     public void inputOutputManagement(VendingMachine vendingMachine) {
-        while (true) {
+        while (loop) {
             String productNumber;
             printVendingMachine(vendingMachine);
             int productInt = 0;
@@ -30,7 +31,7 @@ public class IO {
             }
 
             if (productInt + 1 == vendingMachine.getKey()) {
-                if (loginAdmin(vendingMachine)) continue;
+                if (loginAdmin(vendingMachine)) continue; continue;
             }
             String printPrice = String.format("%.2f", vendingMachine.getItems().get(productInt).getPrice());
             System.out.println("Give me CHF " + printPrice);
@@ -64,20 +65,20 @@ public class IO {
         System.out.print("[");
         for (int i = 0; i < 18; i++) {
             System.out.print("=");
-            Methods.delay(200,500);
+            Methods.delay(20,50);
         }
-        Methods.delay(9000,9100);
+        Methods.delay(90,90);
         System.out.print("==");
         System.out.println("]\n");
         System.out.println("What do you want to do?\nRefill machine(1), Change prize of a product(2)," +
-                " Swap a product(3), Get the money out of your register(4)");
+                " Swap a product(3), Get the money out of your register(4), Shut the machine down(9)");
         if (filled == 0) {
             rangeMax = 1;
         }
         else {
             rangeMax = 4;
         }
-        String action = Methods.readSpecInput(vendingMachine.getKey(), stopVar, 1, rangeMax);
+        String action = Methods.readSpecInput(9, stopVar, 1, rangeMax);
         if (abortProcess(action)) return false;
         int actionInt = Methods.parseStringToInt(action);
         switch (actionInt) {
@@ -88,24 +89,32 @@ public class IO {
             case 2:
                 System.out.println("Product Number: ");
                 productNumber = Methods.readSpecInput(vendingMachine.getKey(), stopVar, 1,
-                        vendingMachine.getSize(1)*vendingMachine.getSize(0)-1);
+                        vendingMachine.getSize(1)*vendingMachine.getSize(0));
                 if (abortProcess(productNumber)) return false;
+                productInt = Methods.parseStringToInt(productNumber)-1;
                 System.out.println("New Price: ");
                 String newPriceString = Methods.readSpecInput(vendingMachine.getKey(),stopVar,0.05,
                         100);
                 if (abortProcess(newPriceString)) return false;
                 double newPrice = Methods.parseStringToDouble(newPriceString);
-                productInt = Methods.parseStringToInt(productNumber);
                 vendingMachine.changePrice(productInt, newPrice);
                 break;
             case 3:
                 System.out.println("Product Number: ");
-                productNumber = Methods.readSpecInput(123, stopVar, 1,
-                        vendingMachine.getSize(1)*vendingMachine.getSize(0)-1);
+                productNumber = Methods.readSpecInput(1, stopVar, 1,
+                        vendingMachine.getSize(1)*vendingMachine.getSize(0));
+                if (abortProcess(productNumber)) return false;
                 productInt = Methods.parseStringToInt(productNumber)-1;
 
-                if (abortProcess(productNumber)) return false;
                 do {
+                    System.out.println("Possible new Products: ");
+                    for (Item i: vendingMachine.items) {
+                        if (i.getProductId()>14){
+                            System.out.println(vendingMachine.getItems().get(i.getProductId()).getName());
+                        }
+                    }
+
+
                     System.out.println("New product name: ");
                     productName = Methods.readAlphabeticString();
                     if (productName.equals("x") )break;
@@ -113,6 +122,10 @@ public class IO {
                 break;
             case 4:
                 System.out.println(vendingMachine.clearRegister());
+                break;
+            case 9:
+                System.out.println("Vending Machine shuts down");
+                loop = false;
                 break;
             default:
                 break;

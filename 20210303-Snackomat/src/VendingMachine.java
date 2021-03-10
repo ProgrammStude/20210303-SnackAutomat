@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class VendingMachine {
 
-    private ArrayList<Item> items = new ArrayList<>();
+    public ArrayList<Item> items = new ArrayList<>();
     private double register;
     private final int[] size;
     private final int key;
@@ -33,11 +33,12 @@ public class VendingMachine {
 
     public void fill() {
         items.clear();
-        double[] price = {3.50, 3.50, 3.00, 3.50, 3.50, 2.20, 2.20, 2.10, 2.50, 2.50, 2.80, 2.50, 2.50, 3.10, 3.10,2.80};
+        double[] price = {3.50, 3.50, 3.00, 3.50, 3.50, 2.20, 2.20, 2.10, 2.50, 2.50, 2.80, 2.50, 2.50, 3.10, 3.10,2.80,
+        3.10};
         int amount = 10;
         String[] product = {"Coca Cola", "Coca Cola", "Water", "Fanta", "Sprite", "Snickers", "Snickers", "Mars",
                 "Twix", "Twix", "Maltesers", "Chewing Gum (Mint)", "Chewing Gum (Blue Berry)", "Oreo Cookie",
-                "Oreo Cookie", "Crisps"};
+                "Oreo Cookie", "Crisps","Chips"};
         for (int productId = 0; productId < product.length; productId++) {
             items.add(createItem(price[productId], amount, productId, product[productId]));
         }
