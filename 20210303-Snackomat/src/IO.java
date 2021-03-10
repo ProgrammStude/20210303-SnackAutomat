@@ -126,8 +126,11 @@ public class IO {
                 Methods.delay(3000, 3000);
                 break;
             case 5:
-                System.out.println("Enter product name, except 'x': ");
-                String name = Methods.readAlphabeticString();
+                String name;
+                do {
+                    System.out.println("Enter product name, except 'x': ");
+                    name = Methods.readAlphabeticString();
+                } while (name.equals(""));
                 if (abortProcess(name)) return false;
                 System.out.println("Enter product price: ");
                 String priceString = Methods.readSpecInput(1, stopVar, 0.05, 100);
