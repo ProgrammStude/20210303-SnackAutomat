@@ -75,7 +75,7 @@ public class IO {
         System.out.print("==");
         System.out.println("]\n");
         System.out.println("What do you want to do?\nRefill machine(1), Change prize of a product(2)," +
-                " Swap a product(3), Get the money out of your register(4), Add new Item to vending machine(5), " +
+                " Swap a product(3), Get the money out of your register(4), Add new item to vending machine(5), " +
                 "Shut the machine down(9)");
         if (filled == 0) {
             rangeMax = 1;
@@ -88,8 +88,14 @@ public class IO {
         switch (actionInt) {
             case 1:
                 //Refill machine
-                vendingMachine.fill();
-                filled = 1;
+                if(filled == 0){
+                    vendingMachine.fill();
+                    filled = 1;
+                }else{
+                    for (int i = 0; i < vendingMachine.items.size(); i++) {
+                        vendingMachine.items.get(i).setAmount(10);
+                    }
+                }
                 break;
             case 2:
                 //Change price of product
@@ -140,7 +146,7 @@ public class IO {
                 double price;
                 int amount;
                 do {
-                    System.out.println("Enter product name, except 'x': ");
+                    System.out.println("Enter product name, except '" + stopVar + "': ");
                     name = Methods.readAlphabeticString();
                 } while (name.equals(""));
                 if (abortProcess(name)) return false;
