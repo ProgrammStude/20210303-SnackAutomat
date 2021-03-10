@@ -44,7 +44,8 @@ public class Methods {
             string = Double.toString(stringInt);
         }
 
-        while (!((stringInt == exept1) || (string.equals(exept2)) || ((stringInt >= rangeMin && stringInt <= rangeMax)))) {
+        while (!((stringInt == exept1) || (string.equals(exept2)) ||
+                ((stringInt >= rangeMin && stringInt <= rangeMax)))) {
             System.out.println("There was an Error, please repeat your input");
             string = scn.nextLine();
 
@@ -74,7 +75,8 @@ public class Methods {
             int strLength = string.length();
 
             for (int i = 0; i < strLength; ++i) {
-                if (string.charAt(i) >= 'a' && string.charAt(i) <= 'z' || string.charAt(i) >= 'A' && string.charAt(i) <= 'Z') {
+                if (string.charAt(i) >= 'a' && string.charAt(i) <= 'z' || string.charAt(i) >= 'A' &&
+                        string.charAt(i) <= 'Z') {
                     ++correctCounter;
                 }
             }
