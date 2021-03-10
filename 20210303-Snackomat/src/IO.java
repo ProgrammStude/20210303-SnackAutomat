@@ -115,7 +115,7 @@ public class IO {
                     }
                     System.out.println("New product name: ");
                     productName = Methods.readAlphabeticString();
-                    if (productName.equals("x")) break;
+                    if (productName.equals(stopVar)) break;
                 } while (!(vendingMachine.changeItem(productInt, productName)));
                 break;
             case 4:
