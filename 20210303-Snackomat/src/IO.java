@@ -74,6 +74,7 @@ public class IO {
                 " Swap a product(3), Get the money out of your register(4), Shut the machine down(9)");
         if (filled == 0) {
             rangeMax = 1;
+            System.out.println("---> Machine is empty please refill first!");
         }
         else {
             rangeMax = 4;
@@ -136,11 +137,7 @@ public class IO {
     }
 
     public boolean abortProcess(String check) {
-        boolean willAbort = false;
-        if (check.equals(stopVar)) {
-            willAbort = true;
-        }
-        return willAbort;
+        return (check.equals(stopVar));
     }
 
     public void printVendingMachine(VendingMachine vendingMachine) {

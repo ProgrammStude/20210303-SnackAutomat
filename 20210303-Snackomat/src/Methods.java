@@ -32,34 +32,42 @@ public class Methods {
     public static String readSpecInput(double exept1, String exept2, double rangeMin, double rangeMax) {
         Scanner scn = new Scanner(System.in);
         String string = scn.nextLine();
-        double stringInt;
+        boolean money = false;
+        double stringDouble;
 
         try {
-            stringInt = Double.parseDouble(string);
+            stringDouble = Double.parseDouble(string);
         } catch (NumberFormatException e) {
-            stringInt = -1.0;
+            stringDouble = -1.0;
         }
 
-        if (stringInt >= rangeMin && stringInt <= rangeMax) {
-            string = Double.toString(stringInt);
+        if (stringDouble >= rangeMin && stringDouble <= rangeMax) {
+            string = Double.toString(stringDouble);
+            money = checkMoney(stringDouble);
         }
-
-        while (!((stringInt == exept1) || (string.equals(exept2)) || ((stringInt >= rangeMin && stringInt <= rangeMax)))) {
+        while (!((stringDouble == exept1) || (string.equals(exept2)) ||
+                (stringDouble >= rangeMin && stringDouble <= rangeMax && money))) {
             System.out.println("There was an Error, please repeat your input");
             string = scn.nextLine();
 
             try {
-                stringInt = Integer.parseInt(string);
+                stringDouble = Double.parseDouble(string);
             } catch (NumberFormatException var11) {
-                stringInt = -1.0;
+                stringDouble = -1.0;
             }
 
-            if (stringInt >= rangeMin && stringInt <= rangeMax) {
-                string = Double.toString(stringInt);
+            if (stringDouble >= rangeMin && stringDouble <= rangeMax) {
+                string = Double.toString(stringDouble);
+                money = checkMoney(stringDouble);
             }
         }
 
         return string;
+    }
+    public static boolean checkMoney(double amount){
+        double decimal = (amount*100)%100;
+        decimal = Math.round(decimal);
+        return  (decimal % 5 == 0);
     }
 
     public static String readAlphabeticString() {
