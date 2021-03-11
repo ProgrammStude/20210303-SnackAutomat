@@ -17,7 +17,6 @@ public class Methods {
 
         while (input < min || input > max) {
             System.out.println("There was an Error, please repeat your input");
-
             try {
                 input = scn.nextInt();
             } catch (InputMismatchException var5) {
@@ -30,6 +29,7 @@ public class Methods {
 
 
     public static String readSpecInput(double exept1, String exept2, double rangeMin, double rangeMax) {
+
         Scanner scn = new Scanner(System.in);
         String string = scn.nextLine();
         boolean money = false;
@@ -42,7 +42,6 @@ public class Methods {
         }
 
         if (stringDouble >= rangeMin && stringDouble <= rangeMax) {
-            string = Double.toString(stringDouble);
             money = checkMoney(stringDouble);
         }
         while (!((stringDouble == exept1) || (string.equals(exept2)) ||
@@ -57,11 +56,9 @@ public class Methods {
             }
 
             if (stringDouble >= rangeMin && stringDouble <= rangeMax) {
-                string = Double.toString(stringDouble);
                 money = checkMoney(stringDouble);
             }
         }
-
         return string;
     }
     public static boolean checkMoney(double amount){
@@ -111,7 +108,7 @@ public class Methods {
         try {
             varDouble = Double.parseDouble(string);
         } catch (NumberFormatException e) {
-            varDouble = 0;
+            varDouble = -1;
         }
         return varDouble;
     }
@@ -123,7 +120,7 @@ public class Methods {
             varDouble = parseStringToDouble(string);
             varInt = (int) varDouble;
         } catch (NumberFormatException var11) {
-            varInt = 0;
+            varInt = -1;
         }
         return varInt;
     }

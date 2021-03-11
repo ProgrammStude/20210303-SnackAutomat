@@ -69,9 +69,9 @@ public class IO {
         System.out.print("[");
         for (int i = 0; i < 18; i++) {
             System.out.print("=");
-            Methods.delay(20, 50);
+            Methods.delay(200, 500);
         }
-        Methods.delay(90, 90);
+        Methods.delay(5000, 5000);
         System.out.print("==");
         System.out.println("]\n");
         System.out.println("What do you want to do?\nRefill machine(1), Change prize of a product(2)," +

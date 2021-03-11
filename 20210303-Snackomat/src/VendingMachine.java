@@ -15,9 +15,8 @@ public class VendingMachine {
     }
 
     public double clearRegister(){
-        double registerMoney = getRegister();
         setRegister(0);
-        return registerMoney;
+        return getRegister();
     }
 
     public Item createItem(double price, int amount, int productID, String name) {
